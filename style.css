@@ -1,33 +1,99 @@
+/* Geral */
+
 /* Computador */
-.container {
-    width: 1200px;
-    margin: auto;
-}
 
 /* Tablet */
 @media (min-width: 769px) and (max-width: 1024px) {
+    
     body {
-        font-size: xx-large;
+        background: #c2bebe;
+        background: radial-gradient(circle, rgba(194, 190, 190, 1) 0%, rgba(232, 232, 232, 1) 50%, rgba(224, 224, 224, 1) 100%);
+        max-height: 100%;
+        font-size: large;
         color: brown;
     }
+
 }
+
+
 
 /* Celular */
 @media (max-width: 768px) {
 
-body {
-    padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 100;
-    color: black;
-}
+    body {
+        background: #c2bebe;
+        background: radial-gradient(circle at 50% 50%, rgba(194, 190, 190, 1) 0%, rgba(232, 232, 232, 1) 50%, rgba(224, 224, 224, 1) 100%);
+        background-repeat: no-repeat;
+        max-height: 100vh;
+        padding: 4%;
 
-.dash-card {
-    background-color: rgba(117, 117, 117, 0.116);
-    width: 80%;
-    height: 150px;
-    border: 1px solid rgb(0, 0, 0);
-    border-radius: 24px;
-}
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100;
+        color: black;
+    }
+
+    .dash-card-text {
+        display: flex;
+        
+        margin: 3%;
+    }
+
+    .consume-card-text {
+        display: flex;
+        
+        margin: 3%;
+        margin-top: 20px;
+    }
+
+    .template-consume-text {
+        display: flex;
+
+    }
+
+    .dashboard {
+        display: flex;
+        gap: 10px;
+    }
+
+    .dash-card {
+        background-color: rgba(206, 202, 202, 0.349);
+        width: 100%;
+        height: 150px;
+        border: 1px solid rgb(0, 0, 0);
+        border-radius: 24px;
+        position: relative;
+    }
+
+    .consume-card {
+        background-color: rgba(206, 202, 202, 0.349);
+        width: 100%;
+        height: 150px;
+        border: 1px solid rgb(0, 0, 0);
+        border-radius: 24px;
+        
+        position: relative;
+
+        display: flex;
+        flex-direction: row;
+    }
+
+
+    .consume-card a {
+        position: relative;
+        inset: 0;
+        z-index: 1;
+    }
+
+    .graphics {
+        width: 44%;
+        height: 99%;
+        background-color: #c2bebe;
+        position: static;
+        border-radius: 20px;
+        border: 1px dotted black;
+        position: relative;
+        z-index: 2;
+    }
+
 
 }
