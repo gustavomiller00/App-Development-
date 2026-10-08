@@ -1,0 +1,220 @@
+
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #272727;
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100vh;
+    
+
+}
+
+.login-card {
+    height: 600px;
+    width: 600px;
+    background-color: rgb(56, 56, 56);
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    border-radius: 50px;
+    box-shadow: 0px 4px 24px 0px rgb(0, 0, 0);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 0;
+
+    padding: 20px;
+}
+
+.input-group {
+    margin: 20px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.org-lw {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.lw-button {
+    width: 70px;
+    height: 70px;
+    background: transparent;
+    box-shadow: 0px 2px 2px 0px rgb(0, 0, 0);
+    
+    border-radius: 12px;
+    border: 1px solid rgba(161, 161, 161, 0.5);
+
+    transition-duration: 0.5s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.lw-button:hover {
+    background-color: #272727;
+    transform: translateY(-5px);
+}
+
+.lw-button .fa-brands {
+    color: #ff0505;
+    font-size: x-large;
+    
+}
+
+/* Animacação */
+.input-group label {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 15px;
+    font-size: 16px;
+    pointer-events: none;
+    color: rgb(218, 223, 223);
+    padding: 0 5px;
+    transition: .5s;
+}
+
+.input-group input {
+    width: 360px;
+    height: 60px;
+    color: #fff;
+    font-size: 16px;
+    padding: 0 15px;
+    border: 1.2px solid rgb(220, 223, 223);
+    background: transparent;
+    outline: none;
+    border-radius: 5px;
+}
+
+.input-group input:focus~label,
+.input-group input:valid~label {
+    top: 0;
+    background: rgb(56, 56, 56);
+    font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px){
+    body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #5c5c5c;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100vh;
+    
+
+}
+
+.login-card {
+    height: 600px;
+    width: 600px;
+    background-color: rgb(44, 44, 44);
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    border-radius: 12px;
+    box-shadow: 0px 4px 24px 0px rgb(0, 0, 0);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 0;
+
+    padding: 20px;
+}
+
+.input-group {
+    margin: 20px 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Animacação */
+.input-group label {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 15px;
+    font-size: 16px;
+    pointer-events: none;
+    color: rgb(218, 223, 223);
+    padding: 0 5px;
+    transition: .5s;
+}
+
+.input-group input {
+    width: 360px;
+    height: 60px;
+    color: #fff;
+    font-size: 16px;
+    padding: 0 15px;
+    border: 1.2px solid rgb(220, 223, 223);
+    background: transparent;
+    outline: none;
+    border-radius: 5px;
+}
+
+.input-group input:focus~label,
+.input-group input:valid~label {
+    top: 0;
+    background: rgb(44, 44, 44);
+    font-size: 14px;
+}
+
+}

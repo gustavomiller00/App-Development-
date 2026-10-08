@@ -27,20 +27,25 @@
         background-repeat: no-repeat;
         max-height: 100%;
         padding: 4%;
+        padding-bottom: 140px;
 
         font-family: Arial, Helvetica, sans-serif;
         font-size: 100;
         color: black;
     }
 
+    /* Switch Bottom Bar */
+
     .menu {
-        background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.219) 50%, rgba(0, 0, 0, 0) 100%);
+        background: linear-gradient(360deg, rgb(0, 0, 0) 0%, rgb(13, 15, 0) 50%, rgba(58, 58, 58, 0.7) 100%);
+        background-repeat: no-repeat;
         width: 100%;
         height: 120px;
         position: fixed;
         bottom: 0;
         left: 0;
         cursor: pointer;
+        z-index: 100;
         
         display: flex;
         flex-direction: row;
@@ -54,12 +59,22 @@
         border: 1px solid black;
         transition-duration: 0.35s ease;
         perspective: 300px;
+
     }
 
     .menu a:hover {
-        background-color: rgba(243, 138, 1, 0.89);
-        perspective: 100px;
+        background: linear-gradient(360deg, rgba(176, 189, 1, 0.5) 0%, rgba(0, 0, 0, 0.219) 50%, rgba(0, 0, 0, 0) 100%);
+        perspective: 600px;
     }
+
+    .menu img {
+        width: 50%;
+        height: 50%;
+        justify-content: center;
+
+    }
+
+    /* Dashboard */
 
 
     .global-divs{
@@ -142,11 +157,20 @@
         
         display: flex;
         position: relative;
+        flex-direction: row;
+        justify-content: end;
     }
 
-    .eletro1, eletro2, eletro3, eletro4 img {
-        border: 1px solid black;
+    .element-consumidores span {
+        display: flex;
+        gap: 20px;
+        padding: 6% 4%;
     }
+
+    
+
+
+
 
 
 
