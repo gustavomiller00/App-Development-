@@ -12,7 +12,7 @@ body {
     left: 0;
     min-height: 100vh;
     min-width: 100vh;
-    
+    overflow: hidden;
 
 }
 
@@ -33,11 +33,36 @@ body {
     padding: 20px;
 }
 
-.input-group {
-    margin: 20px 0;
-    position: relative;
-    z-index: 1;
+.text-or {
+    display:flex; 
+    padding-bottom: 20px;
 }
+
+/* Header */
+
+.header-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.logo-top{
+    height: 60px;
+    width: 60px;
+    border-radius: 12px;
+}
+
+.login-text {
+    color: white;
+    font-size: 25px;
+}
+
+
+/*-----------------------------------*/
+
+/* Login With - Botões */
 
 .org-lw {
     display: flex;
@@ -65,21 +90,39 @@ body {
 }
 
 .lw-button:hover {
-    background-color: #272727;
+    background-color: #313131;
+    box-shadow: 0px 2px 2px 0px rgb(22, 22, 22);
     transform: translateY(-5px);
 }
 
-.lw-button .fa-brands {
-    color: #ff0505;
-    font-size: x-large;
-    
+.lw-button a {
+    color: white;
+    font-size: 24px;
 }
 
-/* Animacação */
+.lw-button a:active {
+    color: white;
+}
+
+.lw-button a:visited {
+    color: white;
+}
+
+/*-----------------------------------*/
+
+
+/* Animacação do input Email e Senha */
+
+.input-group {
+    margin: 20px 0;
+    position: relative;
+    z-index: 1;
+}
+
 .input-group label {
     position: absolute;
     transform: translateY(-50%);
-    top: 50%;
+    top: 30px;
     left: 15px;
     font-size: 16px;
     pointer-events: none;
@@ -107,9 +150,60 @@ body {
     font-size: 14px;
 }
 
+.pass-forgot {
+    display:block;
+    margin-top: 15px;
+    cursor: pointer;
+    color: white;
+}
+
+/*-----------------------------------*/
 
 
+/* Botão Login */
 
+.org-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 30px 0px 0px 0px;
+    margin-top: 10px;
+}
+
+.button-registrar {
+    background-color: rgb(148, 158, 0);
+    border-radius: 20px;
+    padding: 20px 40px;
+    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+    transition-duration: 0.5s;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    text-decoration: none;
+    color: white;
+}
+
+.button-login:hover {
+    transform: translateY(-5px);
+}
+
+.button-login {
+    background-color: rgba(95, 95, 95, 0.3);
+    border-radius: 20px;
+    border: 1px solid rgba(182, 181, 181, 0.384);
+    padding: 20px 40px;
+    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+    transition-duration: 0.5s;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.button-registrar:hover {
+    transform: translateY(-5px);
+}
+
+/*-----------------------------------*/
 
 
 
