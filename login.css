@@ -155,6 +155,12 @@ body {
     margin-top: 15px;
     cursor: pointer;
     color: white;
+    text-decoration: none;
+}
+
+.pass-forgot:hover {
+    color: rgb(179, 191, 0);
+    text-decoration: underline;
 }
 
 /*-----------------------------------*/
@@ -241,27 +247,25 @@ body {
 
 /* Tablet */
 @media (min-width: 769px) and (max-width: 1024px){
-    body {
+
+body {
     font-family: Arial, Helvetica, sans-serif;
-    background: #5c5c5c;
-    color: white;
+    background: #272727;
+    color: rgb(255, 255, 255);
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0;
-    left: 0;
-    min-height: 100vh;
-    min-width: 100vh;
-    
+    overflow: hidden;
 
 }
 
 .login-card {
-    height: 600px;
-    width: 600px;
-    background-color: rgb(44, 44, 44);
+    height: 80%;
+    width: 100%;
+    background-color: rgb(56, 56, 56);
     border: 1px solid rgba(0, 0, 0, 0.24);
-    border-radius: 12px;
+    border-radius: 50px;
     box-shadow: 0px 4px 24px 0px rgb(0, 0, 0);
     
     display: flex;
@@ -273,17 +277,96 @@ body {
     padding: 20px;
 }
 
+.text-or {
+    display:flex; 
+    padding-bottom: 20px;
+}
+
+/* Header */
+
+.header-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.logo-top{
+    height: 60px;
+    width: 60px;
+    border-radius: 12px;
+}
+
+.login-text {
+    color: white;
+    font-size: 25px;
+}
+
+
+/*-----------------------------------*/
+
+/* Login With - Botões */
+
+.org-lw {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.lw-button {
+    width: 70px;
+    height: 70px;
+    background: transparent;
+    box-shadow: 0px 2px 2px 0px rgb(0, 0, 0);
+    
+    border-radius: 12px;
+    border: 1px solid rgba(161, 161, 161, 0.5);
+
+    transition-duration: 0.5s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.lw-button:hover {
+    background-color: #313131;
+    box-shadow: 0px 2px 2px 0px rgb(22, 22, 22);
+    transform: translateY(-5px);
+}
+
+.lw-button a {
+    color: white;
+    font-size: 24px;
+}
+
+.lw-button a:active {
+    color: white;
+}
+
+.lw-button a:visited {
+    color: white;
+}
+
+/*-----------------------------------*/
+
+
+/* Animacação do input Email e Senha */
+
 .input-group {
     margin: 20px 0;
     position: relative;
     z-index: 1;
 }
 
-/* Animacação */
 .input-group label {
     position: absolute;
     transform: translateY(-50%);
-    top: 50%;
+    top: 30px;
     left: 15px;
     font-size: 16px;
     pointer-events: none;
@@ -293,7 +376,7 @@ body {
 }
 
 .input-group input {
-    width: 360px;
+    width: 260px;
     height: 60px;
     color: #fff;
     font-size: 16px;
@@ -307,8 +390,1198 @@ body {
 .input-group input:focus~label,
 .input-group input:valid~label {
     top: 0;
-    background: rgb(44, 44, 44);
+    background: rgb(56, 56, 56);
     font-size: 14px;
 }
 
+.pass-forgot {
+    display:block;
+    margin-top: 15px;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+
+.pass-forgot:hover {
+    color: rgb(179, 191, 0);
+    text-decoration: underline;
+}
+
+/*-----------------------------------*/
+
+
+/* Botão Login */
+
+.org-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 30px 0px 0px 0px;
+    margin-top: 10px;
+}
+
+.button-registrar {
+    background-color: rgb(148, 158, 0);
+    border-radius: 20px;
+    padding: 20px 40px;
+    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+    transition-duration: 0.5s;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    text-decoration: none;
+    color: white;
+}
+
+.button-login:hover {
+    transform: translateY(-5px);
+}
+
+.button-login {
+    background-color: rgba(95, 95, 95, 0.3);
+    border-radius: 20px;
+    border: 1px solid rgba(182, 181, 181, 0.384);
+    padding: 20px 40px;
+    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+    transition-duration: 0.5s;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.button-registrar:hover {
+    transform: translateY(-5px);
+}
+
+/*-----------------------------------*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Tablet pequenos e Mobile Fold */
+@media (min-width: 514px) and (max-width: 599px) {
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #272727;
+        color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        padding: 10px 0px 0px 12%;
+        overflow: hidden;
+
+    }
+
+    .login-card {
+        height: 80%;
+        width: 100%;
+        background-color: rgb(56, 56, 56);
+        border: 1px solid rgba(0, 0, 0, 0.24);
+        border-radius: 50px;
+        box-shadow: 0px 4px 24px 0px rgb(0, 0, 0);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 0;
+
+        padding: 20px;
+    }
+
+    .text-or {
+        display: flex;
+        padding-bottom: 20px;
+    }
+
+    /* Header */
+
+    .header-login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .logo-top {
+        height: 60px;
+        width: 60px;
+        border-radius: 12px;
+    }
+
+    .login-text {
+        color: white;
+        font-size: 25px;
+    }
+
+
+    /*-----------------------------------*/
+
+    /* Login With - Botões */
+
+    .org-lw {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        gap: 10px;
+
+    }
+
+    .lw-button {
+        width: 70px;
+        height: 70px;
+        background: transparent;
+        box-shadow: 0px 2px 2px 0px rgb(0, 0, 0);
+
+        border-radius: 12px;
+        border: 1px solid rgba(161, 161, 161, 0.5);
+
+        transition-duration: 0.5s;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .lw-button:hover {
+        background-color: #313131;
+        box-shadow: 0px 2px 2px 0px rgb(22, 22, 22);
+        transform: translateY(-5px);
+    }
+
+    .lw-button a {
+        color: white;
+        font-size: 24px;
+    }
+
+    .lw-button a:active {
+        color: white;
+    }
+
+    .lw-button a:visited {
+        color: white;
+    }
+
+    /*-----------------------------------*/
+
+
+    /* Animacação do input Email e Senha */
+
+    .input-group {
+        margin: 20px 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .input-group label {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 30px;
+        left: 15px;
+        font-size: 16px;
+        pointer-events: none;
+        color: rgb(218, 223, 223);
+        padding: 0 5px;
+        transition: .5s;
+    }
+
+    .input-group input {
+        width: 260px;
+        height: 60px;
+        color: #fff;
+        font-size: 16px;
+        padding: 0 15px;
+        border: 1.2px solid rgb(220, 223, 223);
+        background: transparent;
+        outline: none;
+        border-radius: 5px;
+    }
+
+    .input-group input:focus~label,
+    .input-group input:valid~label {
+        top: 0;
+        background: rgb(56, 56, 56);
+        font-size: 14px;
+    }
+
+    .pass-forgot {
+        display: block;
+        margin-top: 15px;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+    }
+
+    .pass-forgot:hover {
+        color: rgb(179, 191, 0);
+        text-decoration: underline;
+    }
+
+    /*-----------------------------------*/
+
+
+    /* Botão Login */
+
+    .org-login {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        padding: 30px 0px 0px 0px;
+        margin-top: 10px;
+    }
+
+    .button-registrar {
+        background-color: rgb(148, 158, 0);
+        border-radius: 20px;
+        padding: 20px 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+        transition-duration: 0.5s;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        text-decoration: none;
+        color: white;
+    }
+
+    .button-login:hover {
+        transform: translateY(-5px);
+    }
+
+    .button-login {
+        background-color: rgba(95, 95, 95, 0.3);
+        border-radius: 20px;
+        border: 1px solid rgba(182, 181, 181, 0.384);
+        padding: 20px 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+        transition-duration: 0.5s;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+    }
+
+    .button-registrar:hover {
+        transform: translateY(-5px);
+    }
+
+    /*-----------------------------------*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Tablet pequenos e Mobile Fold 2 */
+@media (min-width: 600px) and (max-width: 768px) {
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #272727;
+        color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        padding: 10px 0px 0px 16%;
+        overflow: hidden;
+
+    }
+
+    .login-card {
+        height: 80%;
+        width: 100%;
+        background-color: rgb(56, 56, 56);
+        border: 1px solid rgba(0, 0, 0, 0.24);
+        border-radius: 50px;
+        box-shadow: 0px 4px 24px 0px rgb(0, 0, 0);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 0;
+
+        padding: 20px;
+    }
+
+    .text-or {
+        display: flex;
+        padding-bottom: 20px;
+    }
+
+    /* Header */
+
+    .header-login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .logo-top {
+        height: 60px;
+        width: 60px;
+        border-radius: 12px;
+    }
+
+    .login-text {
+        color: white;
+        font-size: 25px;
+    }
+
+
+    /*-----------------------------------*/
+
+    /* Login With - Botões */
+
+    .org-lw {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        gap: 10px;
+
+    }
+
+    .lw-button {
+        width: 70px;
+        height: 70px;
+        background: transparent;
+        box-shadow: 0px 2px 2px 0px rgb(0, 0, 0);
+
+        border-radius: 12px;
+        border: 1px solid rgba(161, 161, 161, 0.5);
+
+        transition-duration: 0.5s;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .lw-button:hover {
+        background-color: #313131;
+        box-shadow: 0px 2px 2px 0px rgb(22, 22, 22);
+        transform: translateY(-5px);
+    }
+
+    .lw-button a {
+        color: white;
+        font-size: 24px;
+    }
+
+    .lw-button a:active {
+        color: white;
+    }
+
+    .lw-button a:visited {
+        color: white;
+    }
+
+    /*-----------------------------------*/
+
+
+    /* Animacação do input Email e Senha */
+
+    .input-group {
+        margin: 20px 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .input-group label {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 30px;
+        left: 15px;
+        font-size: 16px;
+        pointer-events: none;
+        color: rgb(218, 223, 223);
+        padding: 0 5px;
+        transition: .5s;
+    }
+
+    .input-group input {
+        width: 260px;
+        height: 60px;
+        color: #fff;
+        font-size: 16px;
+        padding: 0 15px;
+        border: 1.2px solid rgb(220, 223, 223);
+        background: transparent;
+        outline: none;
+        border-radius: 5px;
+    }
+
+    .input-group input:focus~label,
+    .input-group input:valid~label {
+        top: 0;
+        background: rgb(56, 56, 56);
+        font-size: 14px;
+    }
+
+    .pass-forgot {
+        display: block;
+        margin-top: 15px;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+    }
+
+    .pass-forgot:hover {
+        color: rgb(179, 191, 0);
+        text-decoration: underline;
+    }
+
+    /*-----------------------------------*/
+
+
+    /* Botão Login */
+
+    .org-login {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        padding: 30px 0px 0px 0px;
+        margin-top: 10px;
+    }
+
+    .button-registrar {
+        background-color: rgb(148, 158, 0);
+        border-radius: 20px;
+        padding: 20px 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+        transition-duration: 0.5s;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        text-decoration: none;
+        color: white;
+    }
+
+    .button-login:hover {
+        transform: translateY(-5px);
+    }
+
+    .button-login {
+        background-color: rgba(95, 95, 95, 0.3);
+        border-radius: 20px;
+        border: 1px solid rgba(182, 181, 181, 0.384);
+        padding: 20px 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+        transition-duration: 0.5s;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+    }
+
+    .button-registrar:hover {
+        transform: translateY(-5px);
+    }
+
+    /*-----------------------------------*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*` Mobile 1 | Sao 3 no total */
+@media (min-width: 300px) and (max-width: 400px){
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #272727;
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: left;
+    align-items: top;
+    padding: 10px 0px 0px 8%;
+
+
+}
+
+.login-card {
+    height: 550px;
+    width: 95%;
+    background-color: rgb(56, 56, 56);
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    border-radius: 50px;
+    box-shadow: 0px 4px 24px 0px rgb(0, 0, 0);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 0;
+
+    padding: 10px;
+}
+
+.text-or {
+    display:flex; 
+    padding-bottom: 20px;
+}
+
+/* Header */
+
+.header-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-top{
+    height: 40px;
+    width: 40px;
+    border-radius: 12px;
+}
+
+.login-text {
+    color: white;
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+
+/*-----------------------------------*/
+
+/* Login With - Botões */
+
+.org-lw {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.lw-button {
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    box-shadow: 0px 2px 2px 0px rgb(0, 0, 0);
+    
+    border-radius: 12px;
+    border: 1px solid rgba(161, 161, 161, 0.5);
+
+    transition-duration: 0.5s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.lw-button:hover {
+    background-color: #313131;
+    box-shadow: 0px 2px 2px 0px rgb(22, 22, 22);
+    transform: translateY(-5px);
+}
+
+.lw-button a {
+    color: white;
+    font-size: 24px;
+}
+
+.lw-button a:active {
+    color: white;
+}
+
+.lw-button a:visited {
+    color: white;
+}
+
+/*-----------------------------------*/
+
+
+/* Animacação do input Email e Senha */
+
+.input-group {
+    margin: 20px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.input-group label {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 30px;
+    left: 15px;
+    font-size: 16px;
+    pointer-events: none;
+    color: rgb(218, 223, 223);
+    padding: 0 5px;
+    transition: .5s;
+}
+
+.input-group input {
+    width: 210px;
+    height: 60px;
+    color: #fff;
+    font-size: 13px;
+    padding: 0 15px;
+    border: 1.2px solid rgb(220, 223, 223);
+    background: transparent;
+    outline: none;
+    border-radius: 5px;
+}
+
+.input-group input:focus~label,
+.input-group input:valid~label {
+    top: 0;
+    background: rgb(56, 56, 56);
+    font-size: 14px;
+}
+
+.pass-forgot {
+    display:block;
+    margin-top: 15px;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.pass-forgot:hover {
+    color: rgb(179, 191, 0);
+    text-decoration: underline;
+}
+
+/*-----------------------------------*/
+
+
+/* Botão Login */
+
+.org-login {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0px 0px 0px;
+    margin-top: 5px;
+
+}
+
+.button-registrar {
+    background-color: rgb(148, 158, 0);
+    border-radius: 20px;
+    padding: 20px 30px;
+    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+    transition-duration: 0.5s;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    text-decoration: none;
+    color: white;
+}
+
+.button-login:hover {
+    transform: translateY(-5px);
+}
+
+.button-login {
+    background-color: rgba(95, 95, 95, 0.3);
+    border-radius: 20px;
+    border: 1px solid rgba(182, 181, 181, 0.384);
+    padding: 20px 40px;
+    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+    transition-duration: 0.5s;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.button-registrar:hover {
+    transform: translateY(-5px);
+}
+
+/*-----------------------------------*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Mobile 2 */
+@media (min-width: 401px) and (max-width: 459px) {
+
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #272727;
+        color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: left;
+        align-items: top;
+        padding: 10px 0px 0px 12%;
+
+
+    }
+
+    .login-card {
+        height: 520px;
+        width: 96%;
+        background-color: rgb(56, 56, 56);
+        border: 1px solid rgba(0, 0, 0, 0.24);
+        border-radius: 50px;
+        box-shadow: 0px 4px 24px 0px rgb(0, 0, 0);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 0;
+
+        padding: 10px;
+    }
+
+    .text-or {
+        display: flex;
+        padding-bottom: 20px;
+    }
+
+    /* Header */
+
+    .header-login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-top {
+        height: 40px;
+        width: 40px;
+        border-radius: 12px;
+    }
+
+    .login-text {
+        color: white;
+        font-size: 20px;
+        padding-bottom: 10px;
+    }
+
+
+    /*-----------------------------------*/
+
+    /* Login With - Botões */
+
+    .org-lw {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        gap: 10px;
+
+    }
+
+    .lw-button {
+        width: 50px;
+        height: 50px;
+        background: transparent;
+        box-shadow: 0px 2px 2px 0px rgb(0, 0, 0);
+
+        border-radius: 12px;
+        border: 1px solid rgba(161, 161, 161, 0.5);
+
+        transition-duration: 0.5s;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .lw-button:hover {
+        background-color: #313131;
+        box-shadow: 0px 2px 2px 0px rgb(22, 22, 22);
+        transform: translateY(-5px);
+    }
+
+    .lw-button a {
+        color: white;
+        font-size: 24px;
+    }
+
+    .lw-button a:active {
+        color: white;
+    }
+
+    .lw-button a:visited {
+        color: white;
+    }
+
+    /*-----------------------------------*/
+
+
+    /* Animacação do input Email e Senha */
+
+    .input-group {
+        margin: 20px 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .input-group label {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 30px;
+        left: 15px;
+        font-size: 16px;
+        pointer-events: none;
+        color: rgb(218, 223, 223);
+        padding: 0 5px;
+        transition: .5s;
+    }
+
+    .input-group input {
+        width: 210px;
+        height: 60px;
+        color: #fff;
+        font-size: 13px;
+        padding: 0 15px;
+        border: 1.2px solid rgb(220, 223, 223);
+        background: transparent;
+        outline: none;
+        border-radius: 5px;
+    }
+
+    .input-group input:focus~label,
+    .input-group input:valid~label {
+        top: 0;
+        background: rgb(56, 56, 56);
+        font-size: 14px;
+    }
+
+    .pass-forgot {
+        display: block;
+        margin-top: 15px;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+    .pass-forgot:hover {
+        color: rgb(179, 191, 0);
+        text-decoration: underline;
+    }
+
+    /*-----------------------------------*/
+
+
+    /* Botão Login */
+
+    .org-login {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 20px 0px 0px 0px;
+        margin-top: 5px;
+
+    }
+
+    .button-registrar {
+        background-color: rgb(148, 158, 0);
+        border-radius: 20px;
+        padding: 20px 30px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+        transition-duration: 0.5s;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        text-decoration: none;
+        color: white;
+    }
+
+    .button-login:hover {
+        transform: translateY(-5px);
+    }
+
+    .button-login {
+        background-color: rgba(95, 95, 95, 0.3);
+        border-radius: 20px;
+        border: 1px solid rgba(182, 181, 181, 0.384);
+        padding: 20px 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+        transition-duration: 0.5s;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+    }
+
+    .button-registrar:hover {
+        transform: translateY(-5px);
+    }
+
+    /*-----------------------------------*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Mobile 3 */
+@media (min-width: 460px) and (max-width: 513px) {
+
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #272727;
+        color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: left;
+        align-items: top;
+        padding: 10px 0px 0px 15%;
+
+
+    }
+
+    .login-card {
+        height: 520px;
+        width: 96%;
+        background-color: rgb(56, 56, 56);
+        border: 1px solid rgba(0, 0, 0, 0.24);
+        border-radius: 50px;
+        box-shadow: 0px 4px 24px 0px rgb(0, 0, 0);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 0;
+
+        padding: 10px;
+    }
+
+    .text-or {
+        display: flex;
+        padding-bottom: 20px;
+    }
+
+    /* Header */
+
+    .header-login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-top {
+        height: 40px;
+        width: 40px;
+        border-radius: 12px;
+    }
+
+    .login-text {
+        color: white;
+        font-size: 20px;
+        padding-bottom: 10px;
+    }
+
+
+    /*-----------------------------------*/
+
+    /* Login With - Botões */
+
+    .org-lw {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        gap: 10px;
+
+    }
+
+    .lw-button {
+        width: 50px;
+        height: 50px;
+        background: transparent;
+        box-shadow: 0px 2px 2px 0px rgb(0, 0, 0);
+
+        border-radius: 12px;
+        border: 1px solid rgba(161, 161, 161, 0.5);
+
+        transition-duration: 0.5s;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .lw-button:hover {
+        background-color: #313131;
+        box-shadow: 0px 2px 2px 0px rgb(22, 22, 22);
+        transform: translateY(-5px);
+    }
+
+    .lw-button a {
+        color: white;
+        font-size: 24px;
+    }
+
+    .lw-button a:active {
+        color: white;
+    }
+
+    .lw-button a:visited {
+        color: white;
+    }
+
+    /*-----------------------------------*/
+
+
+    /* Animacação do input Email e Senha */
+
+    .input-group {
+        margin: 20px 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    .input-group label {
+        position: absolute;
+        transform: translateY(-50%);
+        top: 30px;
+        left: 15px;
+        font-size: 16px;
+        pointer-events: none;
+        color: rgb(218, 223, 223);
+        padding: 0 5px;
+        transition: .5s;
+    }
+
+    .input-group input {
+        width: 210px;
+        height: 60px;
+        color: #fff;
+        font-size: 13px;
+        padding: 0 15px;
+        border: 1.2px solid rgb(220, 223, 223);
+        background: transparent;
+        outline: none;
+        border-radius: 5px;
+    }
+
+    .input-group input:focus~label,
+    .input-group input:valid~label {
+        top: 0;
+        background: rgb(56, 56, 56);
+        font-size: 14px;
+    }
+
+    .pass-forgot {
+        display: block;
+        margin-top: 15px;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+    .pass-forgot:hover {
+        color: rgb(179, 191, 0);
+        text-decoration: underline;
+    }
+
+    /*-----------------------------------*/
+
+
+    /* Botão Login */
+
+    .org-login {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 20px 0px 0px 0px;
+        margin-top: 5px;
+
+    }
+
+    .button-registrar {
+        background-color: rgb(148, 158, 0);
+        border-radius: 20px;
+        padding: 20px 30px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+        transition-duration: 0.5s;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        text-decoration: none;
+        color: white;
+    }
+
+    .button-login:hover {
+        transform: translateY(-5px);
+    }
+
+    .button-login {
+        background-color: rgba(95, 95, 95, 0.3);
+        border-radius: 20px;
+        border: 1px solid rgba(182, 181, 181, 0.384);
+        padding: 20px 40px;
+        box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
+        transition-duration: 0.5s;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+    }
+
+    .button-registrar:hover {
+        transform: translateY(-5px);
+    }
+
+    /*-----------------------------------*/
 }
