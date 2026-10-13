@@ -4,7 +4,7 @@
     <title>Beta Development App 0.01v</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
     
@@ -35,32 +35,40 @@
     <div id="dashboard">
         
         <div id="top-dash">
-            <h2>Olá "Nome"</h2>
+            <h2>Olá %Nome%</h2>
             <h1> Minha Casa </h1>
         </div>
 
         <div class="global-divs">
             
             <div class="dash-card">
-                <h2 id="Top-info" class="dash-card-text">Informação Importante</h2>
-                <a id="mid-info1" class="dash-card-text">Mid info 1</a>
-                <a id="mid-info2" class="dash-card-text">Mid info 2</a>
-                <a id="mid-info3" class="dash-card-text">Mid info 3</a>
+                <a id="Top-info" class="dash-card-top">Informação Importante</a>
+                <div class="linha"></div>
+                    <div class="dash-card-var">   
+                        <a id="mid-info1" class="dash-card-text">%Mid info% 1</a>
+                        <a id="mid-info2" class="dash-card-text">%Mid info% 2</a>
+                        <a id="mid-info3" class="dash-card-text">%Mid info% 3</a>
+                    </div> 
             </div>
 
             
             <div class="consume-card">
                     <div class="graphics"></div>
                     <div class="template-consume-text">
-                    <a id="mid-info4" class="consume-card-text">Mid info 1</a>
-                    <a id="mid-info5" class="consume-card-text">Mid info 2</a>
-                    <a id="mid-info6" class="consume-card-text">Mid info 3</a>
+                    <a id="mid-info4" class="consume-card-text">%Mid info% 4</a>
+                    <a id="mid-info5" class="consume-card-text">%Mid info% 5</a>
+                    <a id="mid-info6" class="consume-card-text">%Mid info% 6</a>
                     </div>
             </div>
 
 
             <div class="consumidores">
-                    <h3 class="tittle-consumidores">Principais consumidores</h3>
+                    <div class="tittle-consumidores">
+                        <span>Maiores consumidores</span>
+                        <div class="ver-mais">
+                            <a href="#Consumidores">Ver mais</a>
+                        </div>
+                    </div>
                 <div class="list-consumidores">
 
                     <div id="eletro1" class="element-consumidores">
@@ -132,6 +140,6 @@
 <footer>
 
 </footer>
-
+<script src="script.js"></script>
 </body>
 </html>
