@@ -4,25 +4,34 @@
 /* Computador */
 
 /* Tablet */
-@media (min-width: 600px) and (max-width: 1024px) {
+@media (min-width: 600px) and (max-width: 1040px) {
 
     body {
-        background-color: #07031b;
+        background-color: #0b0331;
         max-height: 100%;
         padding: 0px 2% 4% 4%;
-        padding-left: 50px;
+        padding-left: 60px;
+        padding-bottom: 120px;
 
         font-family: Arial, Helvetica, sans-serif;
         font-size: 200;
         color: rgb(255, 254, 254);
     }
 
-    /* Bottom Menu */
+        /* Bottom Menu */
+
+    .top-menu{
+        width: 30px;
+        height: 30px;
+    }
+    .top-menu img{
+        border-radius: 50%;
+    }
 
     .menu {
-        background-color:rgb(13, 9, 44);
+        background-color:rgb(34, 40, 48);
         background-repeat: no-repeat;
-        width: 45px;
+        width: 52px;
         height: 100%;
         position: fixed;
         left: 0;
@@ -38,7 +47,7 @@
     .menu a {
         width: 50px;
         height: 50px;
-        border: 1px solid black;
+        border-bottom: 1px solid black;
         transition-duration: 0.35s ease;
         border-radius: 12px;
 
@@ -55,24 +64,46 @@
         align-items: center;
     }
 
-    /* Dashboard */
 
-    .top-dash {
+    .header {
+        background-color: transparent;
+        width: 100%;
+        height: 60px;
+        border-bottom: 1px solid rgba(248, 248, 248, 0.904);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    #atual-tarif {
+        font-size: 15px;
+        color: gold;
+    }
+
+    /*    Firsts three cards     */
+
+    .top-cards-all {
+        width: 100%;
+        height: 190px;
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0px 10px 0px;
+    }
+
+    .divide {
         display: flex;
         flex-direction: column;
-        gap: 2%;
-        padding: 10px 0px 30px 10px;
     }
 
-    #text-a {
-        font-size: 38px;
-        font-weight: bold;
-    }
-    #text-b {
-        font-size: 20px;
-    }
-
-    .dash-card {
+    .top-cards {
         background: linear-gradient(
         125deg,
         #272727 0%,
@@ -80,19 +111,68 @@
         #363b30 93%,
         #585c41 100%);
         width: 100%;
-        height: 190px;
+        height: 90%;
 
-        border: 1px solid rgb(0, 0, 0);
+        border: 1px solid rgba(255, 255, 255, 0.199);
+        border-radius: 12px;
+        margin: 1px 1px 15px 1px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        row-gap: 5px;
+        align-items: top;
+        padding-top: 10px;
+    }
+
+    .top-cards a {
+        font: 100;
+        padding: 7%;
+    }
+
+    .maior {
+        font-size: 22px;
+    }
+
+    .top-cards img {
+        width: 40px;
+        height: 40px;
+        align-self: center;
+
+        border-radius: 12px;
+    }
+
+    /* ---------------------------- */
+
+    /*    Big Graphics     */
+
+    .first-graphic {
+        background: linear-gradient(
+        125deg,
+        #272727 0%,
+        #272727 85%,
+        #363b30 93%,
+        #585c41 100%);
+        width: 100%;
+        height: 260px;
+
+        border: 1px solid rgba(255, 255, 255, 0.199);
         border-radius: 24px;
-        position: relative;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
-        
+    }
+
+    .div-titles {
+        font-size: 16px;
+    }
+
+    .big-graphics {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 30px;
+        gap: 10px;
+
     }
 
     .linha {
@@ -101,11 +181,8 @@
         height: 2px;
     }
 
-    #Top-info {
-        font-size: 20px;
-    }
 
-    .dash-card-var {
+    .graphics-card-var {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -113,36 +190,25 @@
 
     }
 
-    .dash-card-text {
-        display: flex;
-        margin: 3%;
-    }
-
-    .consume-card-text {
+    .graphics-card-text {
         margin: 3%;
         margin-top: 20px;
     }
 
-    .template-consume-text {
-        display: flex;
-        flex-direction: column;
-        justify-items: right;
-        padding-left: 8%;
-
+    .graphics {
+        width: 40px;
+        height: 100%;
+        background-color: #c2bebe0a;
+        position: static;
+        border-radius: 20px;
+        position: relative;
+        z-index: 2;
+        margin-top: 10px;
     }
 
-    .dashboard {
-        display: flex;
-        gap: 10px;
-    }
+    /*      Segundo Gráfico    */ 
 
-    .global-divs {
-    display: block;
-    flex-direction: column;
-    gap: 10px;
-    }
-
-    .consume-card {
+    .cons-per-equip {
         background: linear-gradient(
         110deg,
         #272727 0%,
@@ -150,32 +216,19 @@
         #3f2e2ec5 93%,
         #502e2e 100%);        
         width: 100%;
-        height: 190px;
+        height: 260px;
         
-        border: 1px solid rgb(0, 0, 0);
+        border: 1px solid rgba(255, 255, 255, 0.199);
         border-radius: 24px;
         position: relative;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         
         display: block;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
     }
 
-    .consume-card {
-        position: relative;
-        display: flex;
-        flex-direction: row;
-    }
-
-
-    .consume-card a {
-        position: relative;
-        inset: 0;
-        z-index: 1;
-    }
-
-    .graphics {
-        width: 44%;
+    .bar-graphic {
+        width: 100%;
         height: 99%;
         background-color: #c2bebe0a;
         position: static;
@@ -184,6 +237,11 @@
         z-index: 2;
         margin-left: 2px;
     }
+
+
+    /* ---------------------------------*/ 
+
+    /*    Maiores consumidores     */
 
     .element-consumidores {
         background: linear-gradient(
@@ -195,7 +253,7 @@
         width: 100%;
         height: 110px;
         
-        border: 1px solid rgb(0, 0, 0);
+        border: 1px solid rgba(255, 255, 255, 0.199);
         border-radius: 18px;
         margin-bottom: 10px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
@@ -227,6 +285,22 @@
         color: rgb(202, 172, 0);
     }
 
+
+        /* Dashboard Mobile*/
+
+    .top-dash {
+        display: none;
+    }
+
+    .consume-card {
+        display: none;
+    }
+
+    .dash-card {
+        display: none;
+    }
+
+    /*-----------------------------*/
 }
 
 
@@ -269,7 +343,7 @@
 @media (min-width: 280px) and (max-width: 599px) {
 
     body {
-        background-color: #07031b;
+        background-color: #0b0331;
         max-height: 100%;
         padding: 4%;
         padding-bottom: 140px;
@@ -279,13 +353,17 @@
         color: rgb(255, 254, 254);
     }
 
+    .top-cards-all {
+        display: none;
+
+    }
     /* Bottom Menu */
 
     .menu {
         background: linear-gradient(360deg, rgb(0, 0, 0) 0%, rgb(13, 15, 0) 50%, rgba(58, 58, 58, 0.7) 100%);
         background-repeat: no-repeat;
         width: 100%;
-        height: 120px;
+        height: 90px;
         position: fixed;
         bottom: 0;
         left: 0;
@@ -322,18 +400,37 @@
     /* Dashboard */
 
     .top-dash {
+        position: relative;
         display: flex;
         flex-direction: column;
         gap: 2%;
-        padding: 10px 0px 30px 10px;
+        padding: 10px 0px 25px 2px;
     }
 
     #text-a {
-        font-size: 38px;
+        font-size: 26px;
         font-weight: bold;
+        z-index: 0;
     }
     #text-b {
-        font-size: 20px;
+        font-size: 14px;
+        z-index: 0;
+    }
+    #logo-med {
+        position: absolute;
+        right: 30px;
+        top: 5px;
+
+        width: 25px;
+        height: 25px;
+    }
+
+    #logo-med img {
+        width: 56px;
+        height: 56px;
+        
+        border-radius: 12px;
+        box-shadow: 0px 2px 36px -15px rgba(255, 248, 248, 0.699);
     }
 
     .dash-card {
@@ -457,7 +554,7 @@
         #3e3f2ec5 95%,
         #504e2e 100%);  
         width: 100%;
-        height: 110px;
+        height: 80px;
         
         border: 1px solid rgb(0, 0, 0);
         border-radius: 18px;
@@ -477,13 +574,13 @@
     }
 
     .tittle-consumidores {
-        font-size: 20px;
+        font-size: 15px;
         font-weight: bold;
 
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 4px 20px 4px;
+        padding: 10px 4px 15px 4px;
     }
 
     .ver-mais a{
