@@ -15,18 +15,22 @@
 
     <div class="logo-menu">
         <img src="img/download.gif">
+        <a class="menu-names" style="color: white;">Medidor Sinistro</a>
     </div>
+
+    <a href="#dashPage" class="nav-bar">
+        <img src="img/dash.png">
+        <span class="menu-names">Dashboard</span>
+    </a>
 
     <a href="#Equips" class="nav-bar">
         <img src="img/equips.png">
+        <span class="menu-names">Equipamentos</span>
     </a>
     
-    <a href="#dashPage" class="nav-bar">
-        <img src="img/dash.png">
-    </a>
-    
-    <a href="#Configuracoes" class="nav-bar">
+    <a href="#Configuracoes" class="nav-bar"> <!-- fa-gears -->
         <img src="img/conf.png">
+        <span class="menu-names">Configuracoes</span>
     </a>
 </nav>
 
@@ -46,7 +50,7 @@
         <div class="top-cards-all">
             
             <div id="card-ConMen" class="top-cards">
-                <img class="icon" src="img/download.gif">
+                <i id="icon-1" class="fa-solid fa-arrow-trend-down icone-top-cards"></i>
                     <div class="divide">
                         <a>CONSUMO MENSAL</a>
                         <a id="mensal-consum" class="maior">000</a>
@@ -55,7 +59,7 @@
             </div>
             
             <div id="card-CusEst" class="top-cards">
-                <img class="icon" src="img/download.gif">
+                <i id="icon-2" class="fa-solid fa-hand-holding-dollar icone-top-cards"></i>
                     <div class="divide">
                         <a>CUSTO ESTIMADO</a>
                         <a id="custo-estim" class="maior">000</a>
@@ -64,7 +68,7 @@
             </div>
             
             <div id="card-ApaAti" class="top-cards">
-                <img class="icon" src="img/download.gif">
+                <i id="icon-3" class="fa-solid fa-bolt icone-top-cards"></i>
                     <div class="divide">
                         <a>APARELHOS ATIVOS</a>
                         <a id="ativ-equips" class="maior">00</a>
@@ -109,6 +113,7 @@
             </div>
 
             <!-- ------------------------------------------ -->
+        <div class="graphics-grid">
 
             <div class="first-graphic">
                 <a id="dis" class="div-titles">Distribuição</a>
@@ -128,15 +133,18 @@
                 <div class="bar-graphic"></div>
             </div>
 
+        </div>
+
 
 
             <div class="consumidores">
                     <div class="tittle-consumidores">
                         <span>Maiores consumidores</span>
                         <div class="ver-mais">
-                            <a href="#Consumidores">Ver todos</a>
+                            <a href="#Consumidores">Ver todos </a>
                         </div>
                     </div>
+
                 <div class="list-consumidores">
 
                     <div id="eletro1" class="element-consumidores">
@@ -209,5 +217,6 @@
 
 </footer>
 <script src="script.js"></script>
+<script src="https://kit.fontawesome.com/17950525a6.js" crossorigin="anonymous"></script>
 </body>
 </html>
