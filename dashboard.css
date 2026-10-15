@@ -7,29 +7,37 @@
 @media (min-width: 600px) and (max-width: 1040px) {
 
     body {
-        background-color: #0b0331;
+        background-color: #0d0c18;
         max-height: 100%;
         padding: 0px 2% 4% 4%;
         padding-left: 60px;
         padding-bottom: 120px;
 
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: "Outfit", sans-serif;
         font-size: 200;
-        color: rgb(255, 254, 254);
+        color: rgb(150, 149, 149);
     }
 
         /* Bottom Menu */
 
-    .top-menu{
-        width: 30px;
-        height: 30px;
+    .logo-menu{
+        width: 40px;
+        height: 40px;
+        
+        display:flex; 
+        justify-content: top;
+        align-items: right;
+
+        padding: 4px 0px 20px 5px;
+
     }
-    .top-menu img{
+    .logo-menu img{
         border-radius: 50%;
+
     }
 
     .menu {
-        background-color:rgb(34, 40, 48);
+        background-color:rgb(28, 33, 37);
         background-repeat: no-repeat;
         width: 52px;
         height: 100%;
@@ -76,7 +84,9 @@
         align-items: center;
         
         font-size: 24px;
-        margin-bottom: 20px;
+        font: 600;
+        color: white;
+        margin-bottom: 15px;
     }
 
     #atual-tarif {
@@ -98,23 +108,59 @@
         padding: 10px 0px 10px 0px;
     }
 
+    /*---------------------------*/
+    #card-ConMen {
+        background: linear-gradient(
+        125deg,
+        rgb(42, 50, 58) 0%,
+        rgb(21, 25, 29) 85%,
+        #363500 93%,
+        #455200 100%);
+    }
+    #mensal-consum{
+        color: #bce200;
+    }
+    
+    /*---------------------------*/
+
+    #card-CusEst {
+        background: linear-gradient(
+        125deg,
+        rgb(42, 50, 58) 0%,
+        rgb(21, 25, 29) 85%,
+        #124712fb 94%,
+        #265824 100%);
+    }#custo-estim{
+        color: #08cf01;
+    }
+
+    /*--------------------------*/
+
+    #card-ApaAti {
+        background: linear-gradient(
+        125deg,
+        rgb(42, 50, 58) 0%,
+        rgb(21, 25, 29) 85%,
+        #266466d7 94%,
+        #2e646b 100%);
+    }
+    #ativ-equips{
+        color: #1caee7;
+    }
+
+    /*---------------------------*/
+
     .divide {
         display: flex;
         flex-direction: column;
     }
 
     .top-cards {
-        background: linear-gradient(
-        125deg,
-        #272727 0%,
-        #272727 85%,
-        #363b30 93%,
-        #585c41 100%);
         width: 100%;
         height: 90%;
 
         border: 1px solid rgba(255, 255, 255, 0.199);
-        border-radius: 12px;
+        border-radius: 26px;
         margin: 1px 1px 15px 1px;
 
         display: flex;
@@ -149,21 +195,30 @@
     .first-graphic {
         background: linear-gradient(
         125deg,
-        #272727 0%,
-        #272727 85%,
+        rgb(42, 50, 58) 0%,
+        rgb(21, 25, 29) 87%,
         #363b30 93%,
         #585c41 100%);
+        
         width: 100%;
         height: 260px;
 
         border: 1px solid rgba(255, 255, 255, 0.199);
-        border-radius: 24px;
+        border-radius: 26px;
         margin-bottom: 20px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
+
     .div-titles {
+        padding: 10px 0px 0px 10px;
         font-size: 16px;
+        
     }
 
     .big-graphics {
@@ -185,19 +240,19 @@
     .graphics-card-var {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: space-evenly;
         gap: 20px;
 
     }
 
     .graphics-card-text {
         margin: 3%;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .graphics {
-        width: 40px;
-        height: 100%;
+        width: 60%;
+        height: 150px;
         background-color: #c2bebe0a;
         position: static;
         border-radius: 20px;
@@ -210,32 +265,30 @@
 
     .cons-per-equip {
         background: linear-gradient(
-        110deg,
-        #272727 0%,
-        #272727 85%,
-        #3f2e2ec5 93%,
-        #502e2e 100%);        
+        125deg,
+        rgb(42, 50, 58) 0%,
+        rgb(21, 25, 29) 87%,
+        #363b30 95%,
+        #585c41 100%);        
         width: 100%;
         height: 260px;
         
         border: 1px solid rgba(255, 255, 255, 0.199);
-        border-radius: 24px;
+        border-radius: 26px;
         position: relative;
         margin-bottom: 20px;
         
-        display: block;
+        display: flex;
+        flex-direction: column;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
     }
 
     .bar-graphic {
         width: 100%;
-        height: 99%;
+        height: 100%;
         background-color: #c2bebe0a;
-        position: static;
+        margin-top: 6px;
         border-radius: 20px;
-        position: relative;
-        z-index: 2;
-        margin-left: 2px;
     }
 
 
@@ -246,15 +299,15 @@
     .element-consumidores {
         background: linear-gradient(
         110deg,
-        #272727 0%,
-        #272727 85%,
+        rgb(42, 50, 58) 0%,
+        rgb(21, 25, 29) 85%,
         #3e3f2ec5 95%,
         #504e2e 100%);  
         width: 100%;
         height: 110px;
         
         border: 1px solid rgba(255, 255, 255, 0.199);
-        border-radius: 18px;
+        border-radius: 26px;
         margin-bottom: 10px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
         
@@ -588,7 +641,10 @@
         color: rgb(202, 172, 0);
     }
 
+    .header {
+        display: none;
 
+    }
 
 
 
