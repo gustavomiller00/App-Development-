@@ -8,7 +8,7 @@ body {
         max-height: 100%;
         padding: 0px 2% 4% 4%;
         padding-left: 16%;
-        padding-bottom: 120px;
+        padding-bottom: 60px;
 
         font-family: "Outfit", sans-serif;
         font-size: 200;
@@ -44,9 +44,9 @@ body {
         
         display: flex;
         flex-direction: column;
-        justify-content: top;
+        height: 100vh;
+        gap: 5px;
         align-items: center;
-        gap: 10px;
     }
 
     .nav-bar {
@@ -70,15 +70,46 @@ body {
         background-color:rgba(165, 168, 0, 0.432) ;
         color:rgb(251, 255, 0);
         transform: translateX(5px);
+        box-shadow: inset 0px 0px 10px 0px rgba(225, 228, 130, 0.5);
     }
 
     .menu-names {
         width: auto;
     }
 
-    .menu img {
-        width: 40px;
-        height: 40px;
+    .icone-dash {
+        font-size : 16px;
+        border-radius: 12px;
+        padding: 20px;
+
+        justify-self: center;
+        align-self: center;
+    }
+
+    #add-equip {
+        width: 90%;
+        height: 50px;
+        border: 1px solid rgb(124, 110, 0);
+        transition-duration: 0.9s;
+        border-radius: 12px;
+        cursor: pointer;
+
+        display: grid;
+        grid-template-columns: 3fr 7fr;
+        align-items: center;
+        margin-top: auto;
+
+        background-color: rgb(206, 206, 0);
+        text-decoration: none;
+        color: rgb(253, 253, 253);
+        margin-bottom: 12%;
+    }
+
+    #add-equip:hover {
+        background-color:rgb(176, 179, 0) ;
+        color:rgb(250, 254, 0);
+        transform: translateX(4px);
+        box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.5);
     }
 
 
@@ -112,7 +143,7 @@ body {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 18px;
-        padding: 10px 0px 5px 0px;
+        padding: 1% 0px 2% 0px;
     }
 
     /*---------------------------*/
@@ -190,9 +221,10 @@ body {
     }
 
     .icone-top-cards {
+        padding: 10px;
+        align-self: center;
         justify-self: center;
         font-size: 20px;
-        padding: 10px;
         border-radius: 12px;
     }
 
@@ -559,6 +591,7 @@ body {
     .divide {
         display: flex;
         flex-direction: column;
+        column-gap: 5px;
     }
 
     .top-cards {
@@ -756,6 +789,10 @@ body {
     }
 
     .dash-card {
+        display: none;
+    }
+
+    .menu-names {
         display: none;
     }
 
@@ -1052,9 +1089,9 @@ body {
 
     }
 
-
-
-
+    .menu-names {
+        display: none;
+    }
 
 
 }
