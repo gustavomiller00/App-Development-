@@ -1,501 +1,804 @@
 
+document.addEventListener("DOMContentLoaded", () => {
 
+    // ==========================================
+    // 1. CONFIGURAÇÕES E DADOS
+    // ==========================================
 
-document.querySelector('.menu').addEventListener('dragstart', (event) => {
-    event.preventDefault();
-});
+    const STORAGE_KEY = "medidorSinistroEquipamentos";
+    const TARIFA_KEY = "medidorSinistroTarifa";
 
+    let tarifa = Number(localStorage.getItem(TARIFA_KEY)) || 0.95;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// GRÁFICOS: 
-
-
-// DADOS DE EXEMPLO
-const horarios = ["00h", "04h", "06h", "08h", "10h", "12h", "14h", "16h", "18h", "21h"];
-const potencias = [0.2, 0.2, 0.4, 1.8, 5.2, 7.8, 6.9, 3.5, 0.8, 0.7, 0.6];
-
-const dias = [
-  "01", "02", "03", "04", "05", "06", "07",
-  "08", "09", "10", "11", "12", "13", "14",
-  "15", "16", "17", "18", "19", "20", "21",
-  "22", "23", "24", "25", "26", "27", "28",
-  "29", "30", "31"
-];
-
-const consumos = [
-  15, 18, 17, 21, 19, 16, 20,
-  22, 18, 17, 25, 19, 16, 20,
-  21, 18, 24, 19, 17, 20, 22,
-  18, 16, 21, 19, 17, 20, 18,
-  22, 19, 18
-];
-
-// FUNÇÕES AUXILIARES
-const media = valores =>
-  valores.reduce((total, valor) => total + valor, 0) / valores.length;
-
-const numero = valor =>
-  valor.toLocaleString("pt-BR", {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1
-  });
-
-// CÁLCULOS
-const mediaPotencia = media(potencias);
-const picoPotencia = Math.max(...potencias);
-const mediaConsumo = media(consumos);
-const picoConsumo = Math.max(...consumos);
-const diaPico = consumos.indexOf(picoConsumo);
-
-// ATUALIZA OS INDICADORES
-document.getElementById("mediaHoje").innerHTML =
-  `${numero(mediaPotencia)} <small class="unidade">kWp</small>`;
-
-document.getElementById("picoHoje").innerHTML =
-  `${numero(picoPotencia)} <small class="unidade">kWp</small>`;
-
-document.getElementById("mediaMes").innerHTML =
-  `${numero(mediaConsumo)} <small class="unidade">kWh</small>`;
-
-document.getElementById("picoMes").innerHTML =
-  `${numero(picoConsumo)} <small class="unidade">kWh</small>`;
-
-// CONFIGURAÇÕES GERAIS DO CHART.JS
-Chart.defaults.font.family = "Arial";
-Chart.defaults.color = "#858995";
-
-const opcoesComuns = {
-  responsive: true,
-  maintainAspectRatio: false,
-
-  interaction: {
-    intersect: true,
-    mode: "nearest"
-  },
-
-  plugins: {
-    legend: {
-      display: false
-    },
-
-    tooltip: {
-      backgroundColor: "#202124",
-      padding: 12,
-      cornerRadius: 10
-    }
-  }
-};
-
-// ==========================================
-// PLUGIN DE ANIMAÇÃO DA LINHA
-// ==========================================
-
-const animacaoLinha = {
-  id: "animacaoLinha",
-
-  beforeDatasetsDraw(chart) {
-    if (chart.options.plugins.animacaoLinha !== true) return;
-
-    const area = chart.chartArea;
-    if (!area) return;
-
-    const ctx = chart.ctx;
-    const progresso = chart.$progressoLinha ?? 0;
-
-    ctx.save();
-    ctx.beginPath();
-
-    ctx.rect(
-      area.left,
-      area.top,
-      (area.right - area.left) * progresso,
-      area.bottom - area.top
+    let equipamentos = JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
     );
 
-    ctx.clip();
-  },
+    const hoje = new Date();
+    const diasNoMes = new Date(
+        hoje.getFullYear(),
+        hoje.getMonth() + 1,
+        0
+    ).getDate();
 
-  afterDatasetsDraw(chart) {
-    if (chart.options.plugins.animacaoLinha !== true) return;
-    if (!chart.chartArea) return;
+    const formatar = (valor) =>
+        Number(valor).toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
 
-    chart.ctx.restore();
-  }
-};
+    const moeda = (valor) =>
+        valor.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
 
-Chart.register(animacaoLinha);
+    const salvar = () => {
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(equipamentos)
+        );
 
-// ==========================================
-// GRÁFICO 1 — LINHA: POTÊNCIA DO DIA
-// ==========================================
+        localStorage.setItem(TARIFA_KEY, tarifa);
+    };
 
-const canvasHoje = document.getElementById("graficoHoje");
+    const equipamentosAtivos = () =>
+        equipamentos.filter(equip => equip.ativo);
 
-const graficoHoje = new Chart(canvasHoje, {
-  type: "line",
+    // ==========================================
+    // 2. CÁLCULOS DE CONSUMO
+    // ==========================================
 
-  data: {
-    labels: horarios,
-
-    datasets: [{
-      label: "Potência",
-      data: potencias,
-
-      borderColor: "#2583f7",
-      backgroundColor: "rgba(37,131,247,0.12)",
-
-      fill: true,
-      tension: 0.35,
-      borderWidth: 3,
-
-      pointRadius: 4,
-      pointHoverRadius: 7,
-      pointBackgroundColor: "#2583f7"
-    }]
-  },
-
-  options: {
-    ...opcoesComuns,
-
-    animation: false,
-
-    plugins: {
-      ...opcoesComuns.plugins,
-      animacaoLinha: true
-    },
-
-    onClick: (evento, elementos) => {
-      if (!elementos.length) return;
-
-      const indice = elementos[0].index;
-      const horario = horarios[indice];
-      const potencia = potencias[indice];
-
-      document.getElementById("detalhesHoje").innerHTML = `
-        <strong>Potência às ${horario}</strong>
-        <p>
-          Potência registrada: ${numero(potencia)} kWp.
-          ${
-            potencia === picoPotencia
-              ? "Este é o pico de potência registrado nos dados."
-              : `Diferença para o pico: ${numero(picoPotencia - potencia)} kWp.`
-          }
-        </p>
-      `;
-    },
-
-    scales: {
-      x: {
-        grid: {
-          display: false
-        },
-        border: {
-          display: false
-        }
-      },
-
-      y: {
-        beginAtZero: true,
-
-        title: {
-          display: true,
-          text: "kWp"
-        },
-
-        grid: {
-          color: "#edf0f5"
-        },
-
-        border: {
-          display: false
-        }
-      }
+    function consumoDiario(equip) {
+        return (equip.potencia / 1000) * equip.horas;
     }
-  }
-});
 
-// ==========================================
-// ANIMAÇÃO DA LINHA — Coloquei 900 Milisegundos
-// ==========================================
-
-let quadroAnimacaoLinha;
-
-function animarLinha() {
-  if (quadroAnimacaoLinha) {
-    cancelAnimationFrame(quadroAnimacaoLinha);
-  }
-
-  const duracao = 900;
-  const inicio = performance.now();
-
-  graficoHoje.$progressoLinha = 0;
-  graficoHoje.draw();
-
-  function desenhar(agora) {
-    const progresso = Math.min(
-      (agora - inicio) / duracao,
-      1
-    );
-
-    graficoHoje.$progressoLinha = progresso;
-    graficoHoje.draw();
-
-    if (progresso < 1) {
-      quadroAnimacaoLinha = requestAnimationFrame(desenhar);
-    } else {
-      quadroAnimacaoLinha = null;
+    function consumoMensal(equip) {
+        return consumoDiario(equip) * diasNoMes;
     }
-  }
 
-  quadroAnimacaoLinha = requestAnimationFrame(desenhar);
-}
+    function consumoTotalDiario() {
+        return equipamentosAtivos().reduce(
+            (total, equip) => total + consumoDiario(equip),
+            0
+        );
+    }
 
-// Anima ao abrir a página.
-animarLinha();
+    function consumoTotalMensal() {
+        return equipamentosAtivos().reduce(
+            (total, equip) => total + consumoMensal(equip),
+            0
+        );
+    }
 
-// ==========================================
-// GRÁFICO 2 — BARRAS: CONSUMO DO MÊS
-// ==========================================
+    function potenciaTotal() {
+        return equipamentosAtivos().reduce(
+            (total, equip) => total + equip.potencia,
+            0
+        );
+    }
 
-const graficoMes = new Chart(
-  document.getElementById("graficoMes"),
-  {
-    type: "bar",
+    // ==========================================
+    // 3. ATUALIZAR DASHBOARD
+    // ==========================================
 
-    data: {
-      labels: dias,
+    function atualizarDashboard() {
 
-      datasets: [{
-        label: "Consumo",
-        data: consumos.map(() => 0),
+        const mensal = consumoTotalMensal();
+        const diario = consumoTotalDiario();
+        const ativos = equipamentosAtivos().length;
+        const custo = mensal * tarifa;
 
-        backgroundColor: consumos.map((valor, indice) =>
-          indice === diaPico ? "#145ac5" : "#75aaf8"
-        ),
+        document.getElementById("mensal-consum").textContent =
+            `${formatar(mensal)} kWh`;
 
-        borderRadius: 5,
-        maxBarThickness: 18
-      }]
-    },
+        document.getElementById("custo-estim").textContent =
+            moeda(custo);
 
-    options: {
-      ...opcoesComuns,
+        document.getElementById("ativ-equips").textContent =
+            ativos.toString().padStart(2, "0");
 
-      animation: {
-        duration: 500,
-        easing: "easeOutQuart",
+        document.getElementById("atual-tarif").textContent =
+            `${moeda(tarifa)}/kWh`;
 
-        delay: ctx => {
-          if (ctx.type === "data" && ctx.mode === "default") {
-            return ctx.dataIndex * 45;
-          }
+        // Informações complementares dos cards
 
-          return 0;
+        const textosCards = document.querySelectorAll(
+            ".top-cards .divide a:last-child"
+        );
+
+        if (textosCards.length >= 3) {
+            textosCards[0].textContent =
+                `${formatar(diario)} kWh por dia`;
+
+            textosCards[1].textContent =
+                `Tarifa: ${moeda(tarifa)}/kWh`;
+
+            textosCards[2].textContent =
+                `${equipamentos.length - ativos} desligados`;
         }
-      },
 
-      onClick: (evento, elementos) => {
-        if (!elementos.length) return;
+        // Informações importantes
 
-        const indice = elementos[0].index;
-        const consumo = consumos[indice];
-        const diferenca = consumo - mediaConsumo;
+        const maiores = [...equipamentosAtivos()]
+            .sort((a, b) => consumoMensal(b) - consumoMensal(a));
 
-        document.getElementById("detalhesMes").innerHTML = `
-          <strong>Dia ${dias[indice]} do mês</strong>
-          <p>
-            Consumo: ${numero(consumo)} kWh.
-            ${
-              indice === diaPico
-                ? "Este foi o dia de maior consumo nos dados."
-                : diferenca > 0
-                  ? `${numero(diferenca)} kWh acima da média diária.`
-                  : diferenca < 0
-                    ? `${numero(Math.abs(diferenca))} kWh abaixo da média diária.`
-                    : "Consumo igual à média diária."
+        const textos = document.querySelectorAll(
+            ".graphics-card-text"
+        );
+
+        const infos = [
+            `Consumo diário: ${formatar(diario)} kWh`,
+            `Consumo mensal: ${formatar(mensal)} kWh`,
+            `Potência instalada: ${formatar(potenciaTotal() / 1000)} kW`
+        ];
+
+        textos.forEach((elemento, indice) => {
+            if (infos[indice]) {
+                elemento.textContent = infos[indice];
             }
-          </p>
+        });
+
+        const informacoesMobile = document.querySelectorAll(
+            ".dash-card-var a"
+        );
+
+        informacoesMobile.forEach((elemento, indice) => {
+            if (infos[indice]) {
+                elemento.textContent = infos[indice];
+            }
+        });
+
+        const textosConsumo = [
+            `Maior consumidor: ${maiores[0]?.nome || "Nenhum"}`,
+            `Consumo: ${formatar(maiores[0] ? consumoMensal(maiores[0]) : 0)} kWh/mês`,
+            `Custo: ${moeda(maiores[0] ? consumoMensal(maiores[0]) * tarifa : 0)}`
+        ];
+
+        document.querySelectorAll(
+            ".template-consume-text a"
+        ).forEach((elemento, indice) => {
+            elemento.textContent = textosConsumo[indice];
+        });
+
+        renderizarEquipamentos();
+        atualizarMaioresConsumidores();
+        atualizarGraficos();
+    }
+
+    // ==========================================
+    // 4. ADICIONAR EQUIPAMENTOS
+    // ==========================================
+
+    function adicionarEquipamento() {
+
+        const nome = prompt("Nome do equipamento:");
+
+        if (!nome || !nome.trim()) return;
+
+        const potencia = Number(
+            prompt("Potência do equipamento em Watts (W):")
+                ?.replace(",", ".")
+        );
+
+        if (!Number.isFinite(potencia) || potencia <= 0) {
+            alert("Informe uma potência válida.");
+            return;
+        }
+
+        const horas = Number(
+            prompt("Quantas horas por dia ele funciona?")
+                ?.replace(",", ".")
+        );
+
+        if (!Number.isFinite(horas) || horas <= 0 || horas > 24) {
+            alert("Informe um tempo entre 0 e 24 horas.");
+            return;
+        }
+
+        const horario = Number(
+            prompt("Horário de início da utilização (0 a 23):", "8")
+        );
+
+        if (
+            !Number.isInteger(horario) ||
+            horario < 0 ||
+            horario > 23
+        ) {
+            alert("Informe um horário válido entre 0 e 23.");
+            return;
+        }
+
+        const equipamento = {
+            id: Date.now(),
+            nome: nome.trim(),
+            potencia,
+            horas,
+            horario,
+            ativo: true
+        };
+
+        equipamentos.push(equipamento);
+
+        salvar();
+        atualizarDashboard();
+
+        alert(`${nome} cadastrado com sucesso!`);
+    }
+
+    // ==========================================
+    // 5. BOTÕES DE ADICIONAR
+    // ==========================================
+
+    document.getElementById("add-equip")
+        ?.addEventListener("click", adicionarEquipamento);
+
+    document.getElementById("add-equip-out")
+        ?.addEventListener("click", adicionarEquipamento);
+
+    // ==========================================
+    // 6. CADASTRO DE EQUIPAMENTOS NA TELA
+    // ==========================================
+
+    function renderizarEquipamentos() {
+
+        const secao = document.getElementById("Equips");
+
+        if (!secao) return;
+
+        secao.innerHTML = `
+            <div class="lista-equipamentos">
+                <h2>Meus equipamentos</h2>
+
+                <p>Gerencie seus aparelhos e acompanhe o consumo.</p>
+
+                <div id="listaEquipamentos"></div>
+            </div>
         `;
-      },
 
-      scales: {
-        x: {
-          grid: {
-            display: false
-          },
+        const lista = document.getElementById("listaEquipamentos");
 
-          border: {
-            display: false
-          },
+        if (equipamentos.length === 0) {
+            lista.innerHTML = `
+                <p>Nenhum equipamento cadastrado.</p>
+                <p>Utilize o botão Adicionar para começar.</p>
+            `;
+            return;
+        }
 
-          ticks: {
-            maxTicksLimit: 8
-          }
+        equipamentos.forEach(equip => {
+
+            const consumo = consumoMensal(equip);
+            const custo = consumo * tarifa;
+
+            const item = document.createElement("div");
+
+            item.className = "equipamento-item";
+
+            item.innerHTML = `
+                <div>
+                    <strong class="nome-equipamento"></strong>
+                    <p>${equip.potencia} W | ${equip.horas} horas/dia</p>
+                    <p>${formatar(consumo)} kWh/mês</p>
+                    <p>${moeda(custo)}/mês</p>
+                </div>
+
+                <div class="acoes-equipamento">
+                    <button class="alternar-equip">
+                        ${equip.ativo ? "Desligar" : "Ligar"}
+                    </button>
+
+                    <button class="remover-equip">
+                        Excluir
+                    </button>
+                </div>
+            `;
+
+            // Evita inserir o nome diretamente como HTML.
+            item.querySelector(".nome-equipamento").textContent =
+                equip.nome;
+
+            item.querySelector(".alternar-equip")
+                .addEventListener("click", () => {
+
+                    equip.ativo = !equip.ativo;
+
+                    salvar();
+                    atualizarDashboard();
+                });
+
+            item.querySelector(".remover-equip")
+                .addEventListener("click", () => {
+
+                    if (!confirm(`Excluir ${equip.nome}?`)) return;
+
+                    equipamentos = equipamentos.filter(
+                        e => e.id !== equip.id
+                    );
+
+                    salvar();
+                    atualizarDashboard();
+                });
+
+            lista.appendChild(item);
+        });
+    }
+
+    // ==========================================
+    // 7. MAIORES CONSUMIDORES
+    // ==========================================
+
+    function atualizarMaioresConsumidores() {
+
+        const maiores = [...equipamentosAtivos()]
+            .sort((a, b) => consumoMensal(b) - consumoMensal(a))
+            .slice(0, 4);
+
+        for (let i = 0; i < 4; i++) {
+
+            const card = document.getElementById(`eletro${i + 1}`);
+
+            if (!card) continue;
+
+            const nome = card.querySelector(".eletro-name");
+            const consumo = card.querySelector(".eletro-consume");
+
+            if (maiores[i]) {
+                nome.textContent = maiores[i].nome;
+
+                consumo.textContent =
+                    `${formatar(consumoMensal(maiores[i]))} kWh`;
+                
+                card.style.display = "flex";
+
+            } else {
+                card.style.display = "none";
+            }
+        }
+    }
+
+    // ==========================================
+    // 8. TARIFA DE ENERGIA
+    // ==========================================
+
+    document.getElementById("atual-tarif")
+        ?.addEventListener("click", () => {
+
+            const novaTarifa = Number(
+                prompt(
+                    "Informe sua tarifa de energia em R$/kWh:",
+                    tarifa.toString()
+                )?.replace(",", ".")
+            );
+
+            if (!Number.isFinite(novaTarifa) || novaTarifa <= 0) {
+                alert("Informe uma tarifa válida.");
+                return;
+            }
+
+            tarifa = novaTarifa;
+
+            salvar();
+            atualizarDashboard();
+        });
+
+    // ==========================================
+    // 9. DADOS DOS GRÁFICOS
+    // ==========================================
+
+    const horarios = Array.from(
+        { length: 24 },
+        (_, hora) => `${String(hora).padStart(2, "0")}h`
+    );
+
+    function calcularPotenciaPorHorario() {
+
+        return horarios.map((_, hora) => {
+
+            return equipamentosAtivos().reduce(
+                (total, equip) => {
+
+                    const horaFinal = equip.horario + equip.horas;
+                    const horaAjustada = hora < equip.horario
+                        ? hora + 24
+                        : hora;
+
+                    const estaLigado =
+                        horaAjustada >= equip.horario &&
+                        horaAjustada < horaFinal;
+
+                    return total + (
+                        estaLigado ? equip.potencia / 1000 : 0
+                    );
+
+                },
+                0
+            );
+        });
+    }
+
+    const dias = Array.from(
+        { length: diasNoMes },
+        (_, i) => String(i + 1).padStart(2, "0")
+    );
+
+    function calcularConsumoPorDia() {
+        return dias.map(() => consumoTotalDiario());
+    }
+
+    const media = valores =>
+        valores.length
+            ? valores.reduce((a, b) => a + b, 0) / valores.length
+            : 0;
+
+    const numero = formatar;
+
+    // ==========================================
+    // 10. CONFIGURAÇÃO DO CHART.JS
+    // ==========================================
+
+    Chart.defaults.font.family = "Outfit, Arial";
+    Chart.defaults.color = "#858995";
+
+    const opcoesComuns = {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        interaction: {
+            intersect: true,
+            mode: "nearest"
         },
 
-        y: {
-          beginAtZero: true,
+        plugins: {
+            legend: {
+                display: false
+            },
 
-          title: {
-            display: true,
-            text: "kWh"
-          },
-
-          grid: {
-            color: "#edf0f5"
-          },
-
-          border: {
-            display: false
-          }
+            tooltip: {
+                backgroundColor: "#202124",
+                padding: 12,
+                cornerRadius: 10
+            }
         }
-      }
-    }
-  }
-);
+    };
 
-// ==========================================
-// NAVEGAÇÃO ENTRE OS GRÁFICOS
-// ==========================================
+    // ==========================================
+    // 11. GRÁFICO DE POTÊNCIA DIÁRIA
+    // ==========================================
 
-const widget = document.getElementById("widgetEnergia");
-const telas = document.querySelectorAll(".tela");
-const pontos = document.querySelectorAll(".ponto");
+    const valoresHoje = calcularPotenciaPorHorario();
 
-let telaAtual = 0;
+    const graficoHoje = new Chart(
+        document.getElementById("graficoHoje"),
+        {
+            type: "line",
 
-let temporizadorEntrada;
-let temporizadorAnimacao;
+            data: {
+                labels: horarios,
 
-function mostrarTela(indice) {
-  const telaAnterior = telaAtual;
+                datasets: [{
+                    label: "Potência estimada",
+                    data: valoresHoje,
 
-  telaAtual = Math.max(0, Math.min(1, indice));
+                    borderColor: "#2583f7",
+                    backgroundColor: "rgba(37,131,247,0.12)",
 
-  telas.forEach((tela, i) => {
-    tela.classList.toggle("ativa", i === telaAtual);
-  });
+                    fill: true,
+                    tension: 0.35,
+                    borderWidth: 3,
 
-  pontos.forEach((ponto, i) => {
-    ponto.classList.toggle("ativo", i === telaAtual);
-  });
+                    pointRadius: 3,
+                    pointHoverRadius: 7,
+                    pointBackgroundColor: "#2583f7"
+                }]
+            },
 
-  document.getElementById("titulo").textContent =
-    telaAtual === 0
-      ? "Potência de hoje"
-      : "Consumo do mês";
+            options: {
+                ...opcoesComuns,
 
-  document.getElementById("subtitulo").textContent =
-    telaAtual === 0
-      ? "Acompanhe a potência ao longo do dia"
-      : "Compare o consumo diário";
+                animation: {
+                    duration: 1200,
+                    easing: "easeInOutQuart"
+                },
 
-  clearTimeout(temporizadorEntrada);
-  clearTimeout(temporizadorAnimacao);
+                onClick: (evento, elementos) => {
 
-  temporizadorEntrada = setTimeout(() => {
-    graficoHoje.resize();
-    graficoMes.resize();
+                    if (!elementos.length) return;
 
-    // REANIMA A LINHA AO VOLTAR PARA ELA
-    if (telaAtual === 0 && telaAnterior !== 0) {
-      animarLinha();
-    }
+                    const indice = elementos[0].index;
+                    const potencia = calcularPotenciaPorHorario()[indice];
 
-    // ANIMA AS BARRAS AO ENTRAR NA TELA MENSAL
-    if (telaAtual === 1 && telaAnterior !== 1) {
-      graficoMes.stop();
+                    document.getElementById("detalhesHoje").innerHTML = `
+                        <strong>Potência às ${horarios[indice]}</strong>
+                        <p>Potência estimada: ${numero(potencia)} kW.</p>
+                    `;
+                },
 
-      graficoMes.data.datasets[0].data =
-        consumos.map(() => 0);
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        border: { display: false },
+                        ticks: { maxTicksLimit: 8 }
+                    },
 
-      graficoMes.update("none");
+                    y: {
+                        beginAtZero: true,
 
-      temporizadorAnimacao = setTimeout(() => {
-        if (telaAtual !== 1) return;
+                        title: {
+                            display: true,
+                            text: "kW"
+                        },
 
-        graficoMes.data.datasets[0].data = [...consumos];
+                        grid: {
+                            color: "rgba(255,255,255,0.08)"
+                        },
+
+                        border: { display: false }
+                    }
+                }
+            }
+        }
+    );
+
+    // ==========================================
+    // 12. GRÁFICO DE CONSUMO MENSAL
+    // ==========================================
+
+    const graficoMes = new Chart(
+        document.getElementById("graficoMes"),
+        {
+            type: "bar",
+
+            data: {
+                labels: dias,
+
+                datasets: [{
+                    label: "Consumo",
+                    data: calcularConsumoPorDia(),
+
+                    backgroundColor: "#75aaf8",
+                    borderRadius: 5,
+                    maxBarThickness: 18
+                }]
+            },
+
+            options: {
+                ...opcoesComuns,
+
+                animation: {
+                    duration: 800,
+                    easing: "easeOutQuart"
+                },
+
+                onClick: (evento, elementos) => {
+
+                    if (!elementos.length) return;
+
+                    const indice = elementos[0].index;
+                    const consumo = calcularConsumoPorDia()[indice];
+
+                    document.getElementById("detalhesMes").innerHTML = `
+                        <strong>Dia ${dias[indice]} do mês</strong>
+                        <p>Consumo estimado: ${numero(consumo)} kWh.</p>
+                        <p>Custo estimado: ${moeda(consumo * tarifa)}.</p>
+                    `;
+                },
+
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        border: { display: false },
+                        ticks: { maxTicksLimit: 8 }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+
+                        title: {
+                            display: true,
+                            text: "kWh"
+                        },
+
+                        grid: {
+                            color: "rgba(255,255,255,0.08)"
+                        },
+
+                        border: { display: false }
+                    }
+                }
+            }
+        }
+    );
+
+    // ==========================================
+    // 13. ATUALIZAR GRÁFICOS
+    // ==========================================
+
+    function atualizarGraficos() {
+
+        const potencias = calcularPotenciaPorHorario();
+        const consumos = calcularConsumoPorDia();
+
+        graficoHoje.data.datasets[0].data = potencias;
+        graficoMes.data.datasets[0].data = consumos;
+
+        graficoHoje.update();
         graficoMes.update();
-      }, 200);
+
+        const mediaPotencia = media(potencias);
+        const picoPotencia = Math.max(0, ...potencias);
+
+        const mediaConsumo = media(consumos);
+        const picoConsumo = Math.max(0, ...consumos);
+
+        document.getElementById("mediaHoje").innerHTML =
+            `${numero(mediaPotencia)} <small class="unidade">kW</small>`;
+
+        document.getElementById("picoHoje").innerHTML =
+            `${numero(picoPotencia)} <small class="unidade">kW</small>`;
+
+        document.getElementById("mediaMes").innerHTML =
+            `${numero(mediaConsumo)} <small class="unidade">kWh</small>`;
+
+        document.getElementById("picoMes").innerHTML =
+            `${numero(picoConsumo)} <small class="unidade">kWh</small>`;
     }
-  }, 50);
-}
 
-// CLIQUE NOS INDICADORES
-pontos.forEach(ponto => {
-  ponto.addEventListener("click", () => {
-    mostrarTela(Number(ponto.dataset.tela));
-  });
-});
+    // ==========================================
+    // 14. NAVEGAÇÃO ENTRE GRÁFICOS
+    // ==========================================
 
-// ==========================================
-// GESTO DE ARRASTAR NO CELULAR
-// ==========================================
+    const widget = document.getElementById("widgetEnergia");
+    const telas = document.querySelectorAll("#widgetEnergia .tela");
+    const pontos = document.querySelectorAll("#widgetEnergia .ponto");
 
-let inicioX = 0;
-let inicioY = 0;
+    let telaAtual = 0;
 
-widget.addEventListener("touchstart", evento => {
-  inicioX = evento.touches[0].clientX;
-  inicioY = evento.touches[0].clientY;
-}, {
-  passive: true
-});
+    function mostrarTela(indice) {
 
-widget.addEventListener("touchend", evento => {
-  const fimX = evento.changedTouches[0].clientX;
-  const fimY = evento.changedTouches[0].clientY;
+        telaAtual = Math.max(0, Math.min(1, indice));
 
-  const distanciaX = fimX - inicioX;
-  const distanciaY = fimY - inicioY;
+        telas.forEach((tela, i) => {
+            tela.classList.toggle("ativa", i === telaAtual);
+        });
 
-  if (Math.abs(distanciaX) < 60) return;
-  if (Math.abs(distanciaX) < Math.abs(distanciaY)) return;
+        pontos.forEach((ponto, i) => {
+            ponto.classList.toggle("ativo", i === telaAtual);
+        });
 
-  mostrarTela(
-    telaAtual + (distanciaX < 0 ? 1 : -1)
-  );
-}, {
-  passive: true
+        document.getElementById("titulo").textContent =
+            telaAtual === 0
+                ? "Potência de hoje"
+                : "Consumo do mês";
+
+        document.getElementById("subtitulo").textContent =
+            telaAtual === 0
+                ? "Acompanhe a potência ao longo do dia"
+                : "Compare o consumo diário";
+
+        setTimeout(() => {
+            graficoHoje.resize();
+            graficoMes.resize();
+        }, 100);
+    }
+
+    pontos.forEach(ponto => {
+        ponto.addEventListener("click", () => {
+            mostrarTela(Number(ponto.dataset.tela));
+        });
+    });
+
+    let graficoDistribuicao;
+
+function atualizarGraficoDistribuicao() {
+    const canvas = document.getElementById("graficoDistribuicao");
+
+    if (!canvas || typeof Chart === "undefined") return;
+
+    const equipamentos = JSON.parse(
+        localStorage.getItem("medidorSinistroEquipamentos") || "[]"
+    );
+
+    // Calcula o consumo diário de cada equipamento
+    const equipamentosAtivos = equipamentos.filter(e => e.ativo);
+
+    const nomes = equipamentosAtivos.map(e => e.nome);
+
+    const consumos = equipamentosAtivos.map(e =>
+        (Number(e.potencia) / 1000) * Number(e.horas)
+    );
+
+    if (graficoDistribuicao) {
+        graficoDistribuicao.destroy();
+    }
+
+    graficoDistribuicao = new Chart(canvas, {
+        type: "doughnut",
+
+        data: {
+            labels: nomes,
+
+            datasets: [{
+                data: consumos,
+
+                backgroundColor: [
+                    "#6C8EFF",
+                    "#A78BFA",
+                    "#4CC9A6",
+                    "#F5B942",
+                    "#F47C7C",
+                    "#55B8D8",
+                    "#D88BCB"
+                ],
+
+                borderWidth: 0,
+                hoverOffset: 8
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            cutout: "72%",
+
+            plugins: {
+                legend: {
+                    display: false
+                },
+
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return ` ${context.label}: ${
+                                context.raw.toFixed(2)
+                            } kWh/dia`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    }
+
+    // ==========================================
+    // 15. DESLIZAR ENTRE OS GRÁFICOS
+    // ==========================================
+
+    let inicioX = 0;
+    let inicioY = 0;
+
+    widget.addEventListener("touchstart", evento => {
+
+        inicioX = evento.touches[0].clientX;
+        inicioY = evento.touches[0].clientY;
+
+    }, { passive: true });
+
+    widget.addEventListener("touchend", evento => {
+
+        const fimX = evento.changedTouches[0].clientX;
+        const fimY = evento.changedTouches[0].clientY;
+
+        const distanciaX = fimX - inicioX;
+        const distanciaY = fimY - inicioY;
+
+        if (Math.abs(distanciaX) < 60) return;
+        if (Math.abs(distanciaX) < Math.abs(distanciaY)) return;
+
+        mostrarTela(
+            telaAtual + (distanciaX < 0 ? 1 : -1)
+        );
+
+    }, { passive: true });
+
+    // ==========================================
+    // 16. INICIALIZAÇÃO
+    // ==========================================
+
+    salvar();
+    atualizarDashboard();
+    atualizarGraficoDistribuicao();
+    mostrarTela(0);
+
 });
