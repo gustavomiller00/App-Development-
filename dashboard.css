@@ -1,77 +1,104 @@
 
-/* Computador */
-@media (min-width: 1041px){
+/* =========================================
+   CONFIGURAÇÕES GERAIS
+========================================= */
 
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}
 
 body {
-        background-color: #0d0c18;
-        max-height: 100%;
-        padding: 0px 2% 4% 4%;
-        padding-left: 16%;
-        padding-bottom: 60px;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #0d0c18;
+    font-family: "Outfit", sans-serif;
+    font-size: 16px;
+    color: rgb(150, 149, 149);
+    overflow-x: hidden;
+}
 
-        font-family: "Outfit", sans-serif;
-        font-size: 200;
-        color: rgb(150, 149, 149);
+img, canvas {
+    max-width: 100%;
+}
+
+.graphics-grid,
+.top-cards-all,
+.global-divs,
+.widget,
+.cons-per-equip {
+    min-width: 0;
+}
+
+/* =========================================
+   COMPUTADOR - A PARTIR DE 1041PX
+========================================= */
+
+@media (min-width: 1041px) {
+
+    body {
+        padding: 0 2% 60px 16%;
     }
 
-        /* Bottom Menu */
+    /* MENU LATERAL */
 
-    .logo-menu{
+    .menu {
+        background-color: rgb(28, 33, 37);
+        width: 15%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .logo-menu {
         width: 90%;
         height: 50px;
         display: grid;
         grid-template-columns: 3fr 7fr;
         align-items: center;
-
-        padding: 4px 0px 20px 0px;
-
+        padding: 4px 0 20px;
     }
-    .logo-menu img{
+
+    .logo-menu img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
     }
 
-    .menu {
-        background-color:rgb(28, 33, 37);
-        background-repeat: no-repeat;
-        width: 15%;
-        height: 100%;
-        position: fixed;
-        left: 0;
-        z-index: 100;
-        
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        gap: 5px;
-        align-items: center;
-    }
-    
-
     .nav-bar {
         width: 90%;
         height: 50px;
         border-bottom: 1px solid black;
-        transition-duration: 0.9s;
+        transition: 0.9s;
         border-radius: 12px;
         cursor: pointer;
 
         display: grid;
         grid-template-columns: 3fr 7fr;
         align-items: center;
+
         color: rgba(250, 248, 248, 0.767);
         text-decoration: none;
-
     }
 
-
     .nav-bar:hover {
-        background-color:rgba(165, 168, 0, 0.432) ;
-        color:rgb(251, 255, 0);
+        background-color: rgba(165, 168, 0, 0.432);
+        color: rgb(251, 255, 0);
         transform: translateX(5px);
-        box-shadow: inset 0px 0px 10px 0px rgba(225, 228, 130, 0.5);
+        box-shadow: inset 0 0 10px rgba(225, 228, 130, 0.5);
     }
 
     .menu-names {
@@ -79,10 +106,9 @@ body {
     }
 
     .icone-dash {
-        font-size : 16px;
+        font-size: 16px;
         border-radius: 12px;
         padding: 20px;
-
         justify-self: center;
         align-self: center;
     }
@@ -90,131 +116,133 @@ body {
     #add-equip {
         width: 90%;
         height: 50px;
+        margin-top: auto;
+        margin-bottom: 12%;
+
         border: 1px solid rgb(124, 110, 0);
-        transition-duration: 0.9s;
         border-radius: 12px;
         cursor: pointer;
 
         display: grid;
         grid-template-columns: 3fr 7fr;
         align-items: center;
-        margin-top: auto;
 
         background-color: rgb(206, 206, 0);
         text-decoration: none;
-        color: rgb(253, 253, 253);
-        margin-bottom: 12%;
+        color: white;
+
+        transition: 0.9s;
     }
 
     #add-equip:hover {
-        background-color:rgb(176, 179, 0) ;
-        color:rgb(250, 254, 0);
+        background-color: rgb(176, 179, 0);
+        color: rgb(250, 254, 0);
         transform: translateX(4px);
-        box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
 
+    /* HEADER */
 
     .header {
-        background-color: transparent;
         width: 100%;
         height: 60px;
-        border-bottom: 1px solid rgba(94, 94, 114, 0.568);
+        margin-bottom: 15px;
 
         display: flex;
         justify-content: space-between;
         align-items: center;
-        
+
+        border-bottom: 1px solid rgba(94, 94, 114, 0.568);
         font-size: 24px;
-        font: 600;
+        font-weight: 600;
         color: white;
-        margin-bottom: 15px;
     }
 
     #atual-tarif {
         font-size: 15px;
         color: gold;
+        cursor: pointer;
     }
 
-    /*    Firsts three cards     */
+    /* CARDS SUPERIORES */
 
     .top-cards-all {
         width: 100%;
-        height: 180px;
-        
+        min-height: 180px;
+
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 18px;
-        padding: 1% 0px 2% 0px;
+
+        padding: 1% 0 2%;
     }
 
-    /*---------------------------*/
     #card-ConMen {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 85%,
-        #363500 93%,
-        #455200 100%);
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 85%,
+            #363500 93%,
+            #455200 100%
+        );
         border: 1px solid #455200;
     }
-    #mensal-consum{
+
+    #mensal-consum {
         color: #bce200;
     }
-    
-    /*---------------------------*/
 
     #card-CusEst {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 85%,
-        #124712fb 94%,
-        #265824 100%);
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 85%,
+            #124712fb 94%,
+            #265824 100%
+        );
         border: 1px solid #265824;
-    }#custo-estim{
+    }
+
+    #custo-estim {
         color: #08cf01;
     }
 
-    /*--------------------------*/
-
     #card-ApaAti {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 85%,
-        #266466d7 94%,
-        #2e646b 100%);
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 85%,
+            #266466d7 94%,
+            #2e646b 100%
+        );
         border: 1px solid #2e646b;
     }
-    #ativ-equips{
+
+    #ativ-equips {
         color: #1caee7;
     }
-
-    /*---------------------------*/
 
     .divide {
         display: flex;
         flex-direction: column;
-        gap: 5px; 
+        gap: 5px;
     }
 
     .top-cards {
         width: 100%;
         height: 85%;
-
-        border-radius: 26px;
-        margin: 1px 1px 15px 1px;
+        margin: 1px 1px 15px;
 
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        row-gap: 5px;
-        align-items: top;
+        align-items: flex-start;
+
+        border-radius: 26px;
         padding-top: 10px;
     }
 
     .top-cards a {
-        font: 100;
         padding: 7%;
     }
 
@@ -235,53 +263,53 @@ body {
         color: #ffa500;
         background: rgba(255, 165, 0, 0.12);
     }
+
     #icon-2 {
         color: #1eff00;
         background: rgba(0, 255, 0, 0.12);
     }
+
     #icon-3 {
         color: #00d9ff;
         background: rgba(0, 174, 255, 0.12);
     }
 
-
-    /* ---------------------------- */
+    /* GRÁFICOS */
 
     .graphics-grid {
         display: grid;
-        grid-template-columns: 3fr 7fr;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
         gap: 16px;
+        width: 100%;
     }
-
-    /*    Big Graphics     */
 
     .first-graphic {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 87%,
-        #363b30 93%,
-        #585c41 100%);
-        
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 87%,
+            #363b30 93%,
+            #585c41 100%
+        );
+
         width: 100%;
+        min-width: 0;
         height: 300px;
 
         border: 1px solid rgba(255, 255, 255, 0.199);
         border-radius: 26px;
         margin-bottom: 20px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
-        
+
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
-
     .div-titles {
-        padding: 10px 0px 0px 10px;
+        padding: 10px 0 0 10px;
         font-size: 16px;
-        
     }
 
     .big-graphics {
@@ -290,7 +318,6 @@ body {
         justify-content: center;
         align-items: center;
         gap: 10px;
-
     }
 
     .linha {
@@ -299,13 +326,11 @@ body {
         height: 2px;
     }
 
-
     .graphics-card-var {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
         gap: 20px;
-
     }
 
     .graphics-card-text {
@@ -313,73 +338,75 @@ body {
         margin-top: 10px;
     }
 
-    .grafico-distribuicao {
-    width: 100%;
-    max-width: 184px;
-    height: 170px;
-    margin: 10px auto;
-    position: relative;
-}
+    .graficoDistribuicao {
+        width: 100%;
+        max-width: 184px;
+        height: 170px;
+        margin: 10px auto;
+        position: relative;
+    }
 
-#graficoDistribuicao {
-    width: 100% !important;
-    height: 100% !important;
-}
+    #graficoDistribuicao {
+        width: 100% !important;
+        height: 100% !important;
+    }
 
-    /*      Segundo Gráfico    */ 
+    /* CONSUMO POR EQUIPAMENTO */
 
     .cons-per-equip {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 87%,
-        #363b30 95%,
-        #585c41 100%);        
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 87%,
+            #363b30 95%,
+            #585c41 100%
+        );
+
         width: 100%;
-        height: 82%;
-        
+        min-width: 0;
+        height: auto;
+
         border: 1px solid rgba(255, 255, 255, 0.199);
         border-radius: 26px;
         position: relative;
         margin-bottom: 20px;
-        
+
         display: flex;
         flex-direction: column;
+
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
     }
 
-
-
-    /* ---------------------------------*/ 
-
-    /*    Maiores consumidores     */
+    /* MAIORES CONSUMIDORES */
 
     .list-consumidores {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 15px;
-
     }
 
     .element-consumidores {
         background: linear-gradient(
-        110deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 85%,
-        #3e3f2ec5 95%,
-        #504e2e 100%);  
+            110deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 85%,
+            #3e3f2ec5 95%,
+            #504e2e 100%
+        );
+
         width: 100%;
+        min-width: 0;
         height: 110px;
-        
+
         border: 1px solid rgba(255, 255, 255, 0.199);
         border-radius: 26px;
         margin-bottom: 10px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
-        
+
         display: flex;
         position: relative;
         flex-direction: row;
-        justify-content: end;
+        justify-content: flex-end;
     }
 
     .element-consumidores span {
@@ -395,213 +422,163 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 4px 20px 4px;
+
+        padding: 10px 4px 20px;
     }
 
-    .ver-mais a{
+    .ver-mais a {
         text-decoration: none;
         color: rgb(202, 172, 0);
     }
 
+    /* OCULTAR ELEMENTOS MOBILE */
 
-        /* Dashboard Mobile*/
-
-    .top-dash {
-        display: none;
-    }
-
-    .consume-card {
-        display: none;
-    }
-
-    .dash-card {
-        display: none;
-    }
-
+    .top-dash,
+    .consume-card,
+    .dash-card,
     #add-equip-out {
         display: none;
     }
 
-    /*-----------------------------*/
 }
 
+/* =========================================
+   TABLET - 531PX ATÉ 1040PX
+========================================= */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            /* Tablet */
 @media (min-width: 531px) and (max-width: 1040px) {
 
     body {
-        background-color: #0d0c18;
-        max-height: 100%;
-        padding: 0px 2% 4% 4%;
-        padding-left: 60px;
-        padding-bottom: 120px;
-
-        font-family: "Outfit", sans-serif;
-        font-size: 200;
-        color: rgb(150, 149, 149);
+        padding: 0 2% 120px 80px;
     }
 
     #dashPage {
         z-index: 0;
         padding-left: 3%;
     }
+
     #NavBar {
         z-index: 1;
     }
 
-        /* Bottom Menu */
-
-    .logo-menu{
-        width: 50px;
-        height: 50px;
-        
-        display:flex;
-        justify-content: top;
-        align-items: right;
-
-        padding: 4px 0px 20px px;
-    }
-    .logo-menu img{
-        border-radius: 50%;
-
-    }
+    /* MENU LATERAL */
 
     .menu {
-        background-color:rgb(28, 33, 37);
-        background-repeat: no-repeat;
+        background-color: rgb(28, 33, 37);
         width: 70px;
-        height: 100%;
+        height: 100vh;
         position: fixed;
+        top: 0;
         left: 0;
-        cursor: pointer;
         z-index: 100;
-        
+
         display: flex;
         flex-direction: column;
-        justify-content: top;
-
+        align-items: center;
     }
-    
-    .nav-bar {
-        width: 90%;
-        height: 50px;
-        border-bottom: 1px solid black;
-        transition-duration: 0.9s;
-        border-radius: 12px;
-        cursor: pointer;
-        margin-left: 10px;
 
+    .logo-menu {
+        width: 50px;
+        height: 50px;
         display: flex;
-        background-color: rgba(37, 37, 37, 0.336);
         justify-content: center;
         align-items: center;
+        padding: 4px 0 20px;
+    }
+
+    .logo-menu img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    .nav-bar {
+        width: 50px;
+        height: 50px;
+        margin-left: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: rgba(37, 37, 37, 0.336);
+        border-bottom: 1px solid black;
+        border-radius: 12px;
+
         color: rgba(250, 248, 248, 0.767);
         text-decoration: none;
+        cursor: pointer;
+
+        transition: 0.9s;
     }
 
     .nav-bar:hover {
-        background-color:rgba(165, 168, 0, 0.432) ;
-        color:rgb(251, 255, 0);
+        background-color: rgba(165, 168, 0, 0.432);
+        color: rgb(251, 255, 0);
         transform: translateX(5px);
-        box-shadow: inset 0px 0px 10px 0px rgba(225, 228, 130, 0.5);
+        box-shadow: inset 0 0 10px rgba(225, 228, 130, 0.5);
     }
 
     #add-equip {
-        width: 90%;
+        width: 50px;
         height: 50px;
-        border: 1px solid rgb(124, 110, 0);
-        transition-duration: 0.9s;
-        border-radius: 12px;
-        cursor: pointer;
+        margin: auto 0 20px;
 
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: auto 0px 20px 3px;
+
+        border: 1px solid rgb(124, 110, 0);
+        border-radius: 12px;
 
         background-color: rgb(206, 206, 0);
         text-decoration: none;
-        color: rgb(253, 253, 253);
+        color: white;
+
+        transition: 0.9s;
     }
 
     #add-equip:hover {
-        background-color:rgb(176, 179, 0) ;
-        color:rgb(250, 254, 0);
+        background-color: rgb(176, 179, 0);
+        color: rgb(250, 254, 0);
         transform: translateX(4px);
-        box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
 
     .menu a {
-        width: 50px;
-        height: 50px;
         border-bottom: 1px solid black;
-        transition-duration: 0.35s ease;
         border-radius: 12px;
-
+        transition: 0.35s ease;
     }
 
     .menu a:hover {
-        background-color:rgba(112, 114, 2, 0.733);
+        background-color: rgba(112, 114, 2, 0.733);
     }
 
     .menu img {
         width: 100%;
         height: 100%;
-        justify-content: center;
-        align-items: center;
     }
 
+    .menu-names {
+        display: none;
+    }
+
+    /* HEADER */
 
     .header {
-        background-color: transparent;
         width: 100%;
         height: 60px;
-        border-bottom: 1px solid rgba(248, 248, 248, 0.904);
+        margin-bottom: 15px;
 
         display: flex;
         justify-content: space-between;
         align-items: center;
-        
+
+        border-bottom: 1px solid rgba(248, 248, 248, 0.904);
         font-size: 24px;
-        font: 600;
+        font-weight: 600;
         color: white;
-        margin-bottom: 15px;
     }
 
     #atual-tarif {
@@ -610,108 +587,108 @@ body {
     }
 
     .icone-dash {
-        font-size : 16px;
+        font-size: 16px;
         border-radius: 12px;
         padding: 20px;
-
         justify-self: center;
         align-self: center;
     }
 
-    /*    Firsts three cards     */
+    /* CARDS SUPERIORES */
 
     .top-cards-all {
         width: 100%;
-        height: 190px;
-        
+        min-height: 190px;
+
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         gap: 10px;
-        padding: 10px 0px 10px 0px;
+
+        padding: 10px 0;
     }
 
-    /*---------------------------*/
     #card-ConMen {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 85%,
-        #363500 93%,
-        #455200 100%);
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 85%,
+            #363500 93%,
+            #455200 100%
+        );
     }
-    #mensal-consum{
+
+    #mensal-consum {
         color: #bce200;
     }
+
     #icon-1 {
         color: #ffa500;
         background: rgba(255, 165, 0, 0.12);
     }
-    
-    /*---------------------------*/
 
     #card-CusEst {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 85%,
-        #124712fb 94%,
-        #265824 100%);
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 85%,
+            #124712fb 94%,
+            #265824 100%
+        );
     }
-    #custo-estim{
+
+    #custo-estim {
         color: #08cf01;
     }
+
     #icon-2 {
         color: #1eff00;
         background: rgba(0, 255, 0, 0.12);
     }
 
-    /*--------------------------*/
-
     #card-ApaAti {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 85%,
-        #266466d7 94%,
-        #2e646b 100%);
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 85%,
+            #266466d7 94%,
+            #2e646b 100%
+        );
     }
-    #ativ-equips{
+
+    #ativ-equips {
         color: #1caee7;
     }
+
     #icon-3 {
         color: #00d9ff;
         background: rgba(0, 174, 255, 0.12);
     }
 
-
-    /*---------------------------*/
-
     .divide {
         display: flex;
         flex-direction: column;
-        column-gap: 5px;
+        gap: 5px;
     }
 
     .top-cards {
         width: 100%;
         height: 90%;
-
-        border: 1px solid rgba(255, 255, 255, 0.199);
-        border-radius: 26px;
-        margin: 1px 1px 15px 1px;
+        min-width: 0;
 
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-        row-gap: 5px;
-        align-items: top;
+        align-items: flex-start;
+
+        border: 1px solid rgba(255, 255, 255, 0.199);
+        border-radius: 26px;
+        margin: 1px 1px 15px;
         padding-top: 10px;
     }
 
     .top-cards a {
-        font: 100;
         padding: 7%;
     }
 
@@ -723,7 +700,6 @@ body {
         width: 40px;
         height: 40px;
         align-self: center;
-
         border-radius: 12px;
     }
 
@@ -735,37 +711,41 @@ body {
         border-radius: 12px;
     }
 
-    /* ---------------------------- */
+    /* GRÁFICOS */
 
-    /*    Big Graphics     */
+    .graphics-grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
 
     .first-graphic {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 87%,
-        #363b30 93%,
-        #585c41 100%);
-        
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 87%,
+            #363b30 93%,
+            #585c41 100%
+        );
+
         width: 100%;
-        height: 260px;
+        height: 300px;
 
         border: 1px solid rgba(255, 255, 255, 0.199);
         border-radius: 26px;
         margin-bottom: 20px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
-        
+
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
-
     .div-titles {
-        padding: 10px 0px 0px 10px;
+        padding: 10px 0 0 10px;
         font-size: 16px;
-        
     }
 
     .big-graphics {
@@ -774,7 +754,6 @@ body {
         justify-content: center;
         align-items: center;
         gap: 10px;
-
     }
 
     .linha {
@@ -783,13 +762,11 @@ body {
         height: 2px;
     }
 
-
     .graphics-card-var {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
         gap: 20px;
-
     }
 
     .graphics-card-text {
@@ -801,32 +778,33 @@ body {
         width: 60%;
         height: 150px;
         background-color: #c2bebe0a;
-        position: static;
-        border-radius: 20px;
         position: relative;
+        border-radius: 20px;
         z-index: 2;
         margin-top: 10px;
     }
 
-    /*      Segundo Gráfico    */ 
-
     .cons-per-equip {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 87%,
-        #363b30 95%,
-        #585c41 100%);        
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 87%,
+            #363b30 95%,
+            #585c41 100%
+        );
+
         width: 100%;
-        height: 260px;
-        
+        min-width: 0;
+        height: auto;
+
         border: 1px solid rgba(255, 255, 255, 0.199);
         border-radius: 26px;
         position: relative;
         margin-bottom: 20px;
-        
+
         display: flex;
         flex-direction: column;
+
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
     }
 
@@ -838,30 +816,29 @@ body {
         border-radius: 20px;
     }
 
-
-    /* ---------------------------------*/ 
-
-    /*    Maiores consumidores     */
+    /* MAIORES CONSUMIDORES */
 
     .element-consumidores {
         background: linear-gradient(
-        110deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 85%,
-        #3e3f2ec5 95%,
-        #504e2e 100%);  
+            110deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 85%,
+            #3e3f2ec5 95%,
+            #504e2e 100%
+        );
+
         width: 100%;
         height: 110px;
-        
+
         border: 1px solid rgba(255, 255, 255, 0.199);
         border-radius: 26px;
         margin-bottom: 10px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
-        
+
         display: flex;
         position: relative;
         flex-direction: row;
-        justify-content: end;
+        justify-content: flex-end;
     }
 
     .element-consumidores span {
@@ -877,146 +854,57 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 4px 20px 4px;
+
+        padding: 10px 4px 20px;
     }
 
-    .ver-mais a{
+    .ver-mais a {
         text-decoration: none;
         color: rgb(202, 172, 0);
     }
 
+    /* OCULTAR ELEMENTOS MOBILE */
 
-        /* Dashboard Mobile*/
-
-    .top-dash {
-        display: none;
-    }
-
-    .consume-card {
-        display: none;
-    }
-
-    .dash-card {
-        display: none;
-    }
-
-    .menu-names {
-        display: none;
-    }
-
+    .top-dash,
+    .consume-card,
+    .dash-card,
     #add-equip-out {
         display: none;
     }
 
-    /*-----------------------------*/
 }
 
+/* =========================================
+   CELULAR - ATÉ 530PX
+========================================= */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Celular */
 @media (min-width: 280px) and (max-width: 530px) {
 
     body {
-        background-color: #0d0c18;
-        max-height: 100%;
         padding: 4%;
         padding-bottom: 140px;
-
-        font-family: "Outfit", sans-serif;
-        font-size: 200;
-        color: rgb(150, 149, 149);
     }
 
-
-    /* Bottom Menu */
-
-    .nav-bar {
-        width: 90%;
-        height: 50px;
-        border-bottom: 1px solid black;
-        transition-duration: 0.9s;
-        border-radius: 12px;
-        cursor: pointer;
-        margin-left: 10px;
-
-        display: flex;
-        background-color: rgba(37, 37, 37, 0.336);
-        justify-content: center;
-        align-items: center;
-        color: rgba(250, 248, 248, 0.767);
-        text-decoration: none;
-    }
-    
-    .nav-bar:hover {
-        background-color:rgba(165, 168, 0, 0.432) ;
-        color:rgb(251, 255, 0);
-        transform: translateY(-5px);
-        border-radius: 18px;
-        box-shadow: inset 0px 0px 10px 0px rgba(225, 228, 130, 0.5);
-    }
-
-    .icone-dash {
-        font-size : 10px;
-        border-radius: 12px;
-        padding: 20px;
-
-        justify-self: center;
-        align-self: center;
-    }
+    /* MENU INFERIOR */
 
     .menu {
         width: 90%;
         height: 90px;
+
         position: fixed;
         bottom: 20px;
-        cursor: pointer;
+        left: 5%;
         z-index: 100;
-        
+
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         align-items: center;
 
         border-radius: 20px;
         background-color: rgba(139, 139, 139, 0.493);
     }
 
-    .logo-menu {
-        display: none;
-    }
+    .logo-menu,
     #add-equip {
         display: none;
     }
@@ -1024,60 +912,91 @@ body {
     .menu a {
         width: 100%;
         height: 100%;
-        transition-duration: 0.35s ease;
+        transition: 0.35s ease;
         perspective: 300px;
-
     }
 
-    #add-equip-out {
-        width: 60px;
-        height: 60px;
-        border: 1px solid rgb(124, 110, 0);
-        transition-duration: 0.9s;
-        border-radius: 20px;
-        cursor: pointer;
+    .nav-bar {
+        width: 90%;
+        height: 50px;
+        margin-left: 10px;
 
         display: flex;
-        position: fixed;
-        bottom: 100px;
-        right: 0;
         justify-content: center;
         align-items: center;
-        z-index: 100;
 
-        background-color: rgb(190, 190, 1);
-        box-shadow: 0px 0px 10px 0px rgba(221, 224, 2, 0.5);
+        border-bottom: 1px solid black;
+        border-radius: 12px;
+        background-color: rgba(37, 37, 37, 0.336);
+
+        color: rgba(250, 248, 248, 0.767);
         text-decoration: none;
-        color: rgb(253, 253, 253);
-        margin: 0px 5% 5% 0px ;
+        cursor: pointer;
+
+        transition: 0.9s;
     }
 
-    #add-equip-out:hover {
-        background-color:rgb(176, 179, 0) ;
-        color:rgb(250, 254, 0);
-        transform: translateX(-4px);
-        box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.5);
+    .nav-bar:hover {
+        background-color: rgba(165, 168, 0, 0.432);
+        color: rgb(251, 255, 0);
+        transform: translateY(-5px);
+        border-radius: 18px;
+        box-shadow: inset 0 0 10px rgba(225, 228, 130, 0.5);
     }
 
     .icone-dash {
-        font-size : 22px;
+        font-size: 22px;
         border-radius: 12px;
         padding: 20px;
-
         justify-self: center;
         align-self: center;
     }
 
+    /* BOTÃO ADICIONAR EQUIPAMENTO */
 
-    /* Dashboard */
+    #add-equip-out {
+        width: 60px;
+        height: 60px;
+
+        position: fixed;
+        bottom: 100px;
+        right: 5%;
+        z-index: 100;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border: 1px solid rgb(124, 110, 0);
+        border-radius: 20px;
+
+        background-color: rgb(190, 190, 1);
+        box-shadow: 0 0 10px rgba(221, 224, 2, 0.5);
+
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+
+        transition: 0.9s;
+    }
+
+    #add-equip-out:hover {
+        background-color: rgb(176, 179, 0);
+        color: rgb(250, 254, 0);
+        transform: translateX(-4px);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    /* DASHBOARD MOBILE */
 
     .top-dash {
         position: relative;
+
         display: flex;
         flex-direction: column;
         gap: 2%;
-        padding: 10px 0px 25px 2px;
 
+        padding: 10px 0 25px 2px;
         color: rgb(241, 240, 240);
     }
 
@@ -1086,15 +1005,16 @@ body {
         font-weight: bold;
         z-index: 0;
     }
+
     #text-b {
         font-size: 14px;
         z-index: 0;
     }
+
     #logo-med {
         position: absolute;
         right: 30px;
         top: 5px;
-
         width: 25px;
         height: 25px;
     }
@@ -1102,28 +1022,30 @@ body {
     #logo-med img {
         width: 56px;
         height: 56px;
-        
         border-radius: 12px;
-        box-shadow: 0px 2px 36px -15px rgba(109, 118, 255, 0.815);
+        box-shadow: 0 2px 36px -15px rgba(109, 118, 255, 0.815);
     }
 
     .dash-card {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 87%,
-        #363b30 93%,
-        #585c41 100%);
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 87%,
+            #363b30 93%,
+            #585c41 100%
+        );
 
         width: 100%;
+        min-width: 0;
         height: 190px;
 
-        border: 1px solid rgb(0, 0, 0);
+        border: 1px solid black;
         border-radius: 28px;
         position: relative;
         margin-bottom: 10px;
+
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
-        
+
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -1146,7 +1068,6 @@ body {
         flex-direction: row;
         justify-content: space-between;
         gap: 20px;
-
     }
 
     .dash-card-text {
@@ -1164,8 +1085,6 @@ body {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        
-
     }
 
     .dashboard {
@@ -1174,33 +1093,37 @@ body {
     }
 
     .global-divs {
-    display: block;
-    flex-direction: column;
-    gap: 10px;
+        display: block;
+        flex-direction: column;
+        gap: 10px;
     }
+
+    /* CARD DE CONSUMO */
 
     .consume-card {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 87%,
-        #363b30 93%,
-        #585c41 100%);
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 87%,
+            #363b30 93%,
+            #585c41 100%
+        );
 
         width: 100%;
-        height: 190px;
-        
-        border: 1px solid rgb(0, 0, 0);
+        min-width: 0;
+        min-height: 190px;
+
+        border: 1px solid black;
         border-radius: 28px;
         position: relative;
         margin-bottom: 10px;
-        
+
         display: grid;
-        grid-template-columns: 5.5fr 4.5fr;
-        gap: 20px;
+        grid-template-columns: minmax(0, 5.5fr) minmax(0, 4.5fr);
+        gap: 10px;
+
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
     }
-
 
     .consume-card a {
         position: relative;
@@ -1208,37 +1131,41 @@ body {
         z-index: 1;
     }
 
-    .graphics {
-        width: 100%;
-        height: 100%;
+    .graficoDistribuicao {
+        width: 80%;
+        height: 80%;
         background-color: #c2bebe0a;
-        position: static;
-        border-radius: 20px;
         position: relative;
+        border-radius: 20px;
         z-index: 2;
         margin-left: 2px;
     }
 
+    /* MAIORES CONSUMIDORES */
+
     .element-consumidores {
         background: linear-gradient(
-        125deg,
-        rgb(42, 50, 58) 0%,
-        rgb(21, 25, 29) 87%,
-        #363b30 93%,
-        #585c41 100%);
+            125deg,
+            rgb(42, 50, 58) 0%,
+            rgb(21, 25, 29) 87%,
+            #363b30 93%,
+            #585c41 100%
+        );
 
         width: 100%;
+        min-width: 0;
         height: 80px;
-        
-        border: 1px solid rgb(0, 0, 0);
+
+        border: 1px solid black;
         border-radius: 18px;
         margin-bottom: 10px;
+
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.295);
-        
+
         display: flex;
         position: relative;
         flex-direction: row;
-        justify-content: end;
+        justify-content: flex-end;
     }
 
     .element-consumidores span {
@@ -1254,51 +1181,35 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 4px 15px 4px;
+
+        padding: 10px 4px 15px;
     }
 
-    .ver-mais a{
+    .ver-mais a {
         text-decoration: none;
         color: rgb(202, 172, 0);
     }
 
-    .header {
-        display: none;
+    /* OCULTAR ELEMENTOS DESKTOP/TABLET */
 
-    }
-
-    .menu-names {
-        display: none;
-    }
-
-    .first-graphic {
-        display: none;
-    }
-
-    .cons-per-equip {
-        display: none;
-    }
+    .header,
+    .menu-names,
+    .first-graphic,
+    .cons-per-equip,
     .top-cards-all {
         display: none;
-
     }
-
 
 }
 
-
-
-
-
-
-
-
-/* ===== CORREÇÃO DO WIDGET DE ENERGIA ===== */
+/* =========================================
+   WIDGET DE ENERGIA - TODOS OS DISPOSITIVOS
+========================================= */
 
 .cons-per-equip {
     width: 100%;
-    height: auto;
     min-width: 0;
+    height: auto;
     align-self: stretch;
     box-sizing: border-box;
 }
@@ -1306,10 +1217,14 @@ body {
 .widget {
     width: calc(100% - 24px);
     max-width: 100%;
+    min-width: 0;
+
     height: auto;
-    min-height: 520px;
+    min-height: 0;
+
     margin: 12px auto;
     padding: clamp(14px, 2vw, 24px);
+
     overflow: hidden;
     box-sizing: border-box;
 }
@@ -1322,15 +1237,17 @@ body {
 .grafico {
     position: relative;
     width: 100%;
-    height: 220px;
     min-width: 0;
+    height: 220px;
 }
 
 .grafico canvas {
     display: block;
+    max-width: 100%;
 }
 
 .metricas {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -1339,43 +1256,125 @@ body {
     overflow-wrap: anywhere;
 }
 
-/* Tablet */
-@media (min-width: 601px) and (max-width: 1040px) {
-    .graphics-grid {
-        grid-template-columns: minmax(0, 1fr);
+/* EXIBIÇÃO DAS TELAS DO WIDGET */
+
+#widgetEnergia .tela {
+    display: none;
+    width: 100%;
+    min-width: 0;
+}
+
+#widgetEnergia .tela.ativa {
+    display: block;
+    animation: aparecer 0.2s ease;
+}
+
+#widgetEnergia .tela .grafico {
+    position: relative;
+    width: 100%;
+    height: 230px;
+}
+
+#widgetEnergia .tela .grafico canvas {
+    display: block;
+    max-width: 100%;
+}
+
+/* ANIMAÇÃO */
+
+@keyframes aparecer {
+    from {
+        opacity: 0.5;
     }
 
-    .first-graphic {
-        width: 100%;
-        height: 300px;
+    to {
+        opacity: 1;
     }
+}
+
+/* =========================================
+   LISTA DE EQUIPAMENTOS
+========================================= */
+
+.lista-equipamentos {
+    width: 100%;
+    min-width: 0;
+    padding: 25px;
+    color: white;
+}
+
+#listaEquipamentos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.equipamento-item {
+    background: linear-gradient(125deg, #2a323a, #15191d);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 18px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.equipamento-item p {
+    margin: 7px 0;
+    color: #aaa;
+}
+
+.acoes-equipamento {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.acoes-equipamento button {
+    padding: 9px 14px;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    background: #bce200;
+    color: #15191d;
+    font-weight: bold;
+}
+
+.acoes-equipamento button:last-child {
+    background: #a9141f;
+    color: white;
+}
+
+/* =========================================
+   AJUSTES ESPECÍFICOS DO WIDGET
+========================================= */
+
+/* Tablet */
+
+@media (min-width: 531px) and (max-width: 1040px) {
 
     .widget {
-        min-height: 520px;
+        min-height: 0;
     }
 
     .grafico {
         height: 230px;
     }
+
+    #widgetEnergia .tela .grafico {
+        height: 230px;
+    }
+
 }
 
 /* Celular */
-@media (max-width: 600px) {
-    .graphics-grid {
-        grid-template-columns: minmax(0, 1fr);
-    }
 
-    .first-graphic {
-        width: 100%;
-        height: 280px;
-    }
-
-    .cons-per-equip {
-        width: 100%;
-    }
+@media (max-width: 530px) {
 
     .widget {
-        width: calc(100% - 16px);
+        width: 100%;
         min-height: 0;
         margin: 8px auto;
         padding: 14px;
@@ -1408,6 +1407,10 @@ body {
         height: 210px;
     }
 
+    #widgetEnergia .tela .grafico {
+        height: 210px;
+    }
+
     .detalhes {
         margin-top: 12px;
         padding: 12px;
@@ -1416,10 +1419,13 @@ body {
     .instrucao {
         font-size: 11px;
     }
+
 }
 
-/* Celulares estreitos */
+/* CELULARES ESTREITOS */
+
 @media (max-width: 360px) {
+
     .widget {
         padding: 10px;
     }
@@ -1431,96 +1437,13 @@ body {
     .grafico {
         height: 190px;
     }
-}
 
-/* ===== Exibir somente uma tela do widget ===== */
-
-#widgetEnergia .tela {
-    display: none;
-    width: 100%;
-    min-width: 0;
-}
-
-#widgetEnergia .tela.ativa {
-    display: block;
-    animation: aparecer 0.2s ease;
-}
-
-#widgetEnergia .tela .grafico {
-    position: relative;
-    width: 100%;
-    height: 230px;
-}
-
-#widgetEnergia .tela .grafico canvas {
-    display: block;
-}
-
-/* Animação de entrada */
-@keyframes aparecer {
-    from {
-        opacity: 0.5;
+    #widgetEnergia .tela .grafico {
+        height: 190px;
     }
 
-    to {
-        opacity: 1;
+    .lista-equipamentos {
+        padding: 10px;
     }
+
 }
-
-
-/* Lista de equipamentos */
-
-.lista-equipamentos {
-    width: 100%;
-    padding: 25px;
-    color: white;
-}
-
-#listaEquipamentos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-    margin-top: 25px;
-}
-
-.equipamento-item {
-    background: linear-gradient(125deg, #2a323a, #15191d);
-    border: 1px solid rgba(255,255,255,.15);
-    border-radius: 18px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.equipamento-item p {
-    margin: 7px 0;
-    color: #aaa;
-}
-
-.acoes-equipamento {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.acoes-equipamento button {
-    padding: 9px 14px;
-    border: none;
-    border-radius: 9px;
-    cursor: pointer;
-    background: #bce200;
-    color: #15191d;
-    font-weight: bold;
-}
-
-.acoes-equipamento button:last-child {
-    background: #a9141f;
-    color: white;
-}
-
-#atual-tarif {
-    cursor: pointer;
-}
-
-
