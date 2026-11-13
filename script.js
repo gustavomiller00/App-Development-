@@ -92,6 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("mensal-consum").textContent =
             `${formatar(mensal)} kWh`;
 
+        document.getElementById("mensal-consum2").textContent =
+            `${formatar(mensal)} kWh`;
+
         document.getElementById("custo-estim").textContent =
             moeda(custo);
 
@@ -644,8 +647,162 @@ document.addEventListener("DOMContentLoaded", () => {
             `${numero(picoConsumo)} <small class="unidade">kWh</small>`;
     }
 
+    
     // ==========================================
-    // 14. NAVEGAÇÃO ENTRE GRÁFICOS
+    // 14. GRÁFICOS DE DISTRIBUIÇÃO (DONUT)
+    // ==========================================
+
+    let graficoDistribuicao;
+    let graficoDistribuicao2;
+
+
+    // PRIMEIRO GRÁFICO
+    function atualizarGraficoDistribuicao() {
+
+        const canvas = document.getElementById("graficoDistribuicao");
+
+        if (!canvas || typeof Chart === "undefined") return;
+
+        const equipamentos = JSON.parse(
+            localStorage.getItem("medidorSinistroEquipamentos") || "[]"
+        );
+
+        const equipamentosAtivos = equipamentos.filter(e => e.ativo);
+
+        const nomes = equipamentosAtivos.map(e => e.nome);
+
+        const consumos = equipamentosAtivos.map(e =>
+            (Number(e.potencia) / 1000) * Number(e.horas)
+        );
+
+        if (graficoDistribuicao) {
+            graficoDistribuicao.destroy();
+        }
+
+        graficoDistribuicao = new Chart(canvas, {
+            type: "doughnut",
+
+            data: {
+                labels: nomes,
+
+                datasets: [{
+                    data: consumos,
+
+                    backgroundColor: [
+                        "#002396",
+                        "#5f8800",
+                        "#00c08a",
+                        "#c78500",
+                        "#8d0000",
+                        "#5d0088",
+                        "#0b8500"
+                    ],
+
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: "72%",
+
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.label}: ${
+                                    context.raw.toFixed(2)
+                                } kWh/dia`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+    // SEGUNDO GRÁFICO
+    function atualizarGraficoDistribuicao2() {
+
+        const canvas = document.getElementById("graficoDistribuicao2");
+
+        if (!canvas || typeof Chart === "undefined") return;
+
+        const equipamentos = JSON.parse(
+            localStorage.getItem("medidorSinistroEquipamentos") || "[]"
+        );
+
+        const equipamentosAtivos = equipamentos.filter(e => e.ativo);
+
+        const nomes = equipamentosAtivos.map(e => e.nome);
+
+        const consumos = equipamentosAtivos.map(e =>
+            (Number(e.potencia) / 1000) * Number(e.horas)
+        );
+
+        if (graficoDistribuicao2) {
+            graficoDistribuicao2.destroy();
+        }
+
+        graficoDistribuicao2 = new Chart(canvas, {
+            type: "doughnut",
+
+            data: {
+                labels: nomes,
+
+                datasets: [{
+                    data: consumos,
+
+                    backgroundColor: [
+                        "#002396",
+                        "#5f8800",
+                        "#00c08a",
+                        "#c78500",
+                        "#8d0000",
+                        "#5d0088",
+                        "#0b8500"
+                    ],
+
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: "72%",
+
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.label}: ${
+                                    context.raw.toFixed(2)
+                                } kWh/dia`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+    
+    // ==========================================
+    // 15. NAVEGAÇÃO ENTRE GRÁFICOS
     // ==========================================
 
     const widget = document.getElementById("widgetEnergia");
@@ -666,19 +823,31 @@ document.addEventListener("DOMContentLoaded", () => {
             ponto.classList.toggle("ativo", i === telaAtual);
         });
 
-        document.getElementById("titulo").textContent =
-            telaAtual === 0
-                ? "Potência de hoje"
-                : "Consumo do mês";
+        const titulo = document.getElementById("titulo");
+        const subtitulo = document.getElementById("subtitulo");
 
-        document.getElementById("subtitulo").textContent =
-            telaAtual === 0
-                ? "Acompanhe a potência ao longo do dia"
-                : "Compare o consumo diário";
+        if (titulo) {
+            titulo.textContent =
+                telaAtual === 0
+                    ? "Potência de hoje"
+                    : "Consumo do mês";
+        }
+
+        if (subtitulo) {
+            subtitulo.textContent =
+                telaAtual === 0
+                    ? "Acompanhe a potência ao longo do dia"
+                    : "Compare o consumo diário";
+        }
 
         setTimeout(() => {
-            graficoHoje.resize();
-            graficoMes.resize();
+            if (typeof graficoHoje !== "undefined") {
+                graficoHoje.resize();
+            }
+
+            if (typeof graficoMes !== "undefined") {
+                graficoMes.resize();
+            }
         }, 100);
     }
 
@@ -688,109 +857,41 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    let graficoDistribuicao;
-
-function atualizarGraficoDistribuicao() {
-    const canvas = document.getElementById("graficoDistribuicao");
-
-    if (!canvas || typeof Chart === "undefined") return;
-
-    const equipamentos = JSON.parse(
-        localStorage.getItem("medidorSinistroEquipamentos") || "[]"
-    );
-
-    // Calcula o consumo diário de cada equipamento
-    const equipamentosAtivos = equipamentos.filter(e => e.ativo);
-
-    const nomes = equipamentosAtivos.map(e => e.nome);
-
-    const consumos = equipamentosAtivos.map(e =>
-        (Number(e.potencia) / 1000) * Number(e.horas)
-    );
-
-    if (graficoDistribuicao) {
-        graficoDistribuicao.destroy();
-    }
-
-    graficoDistribuicao = new Chart(canvas, {
-        type: "doughnut",
-
-        data: {
-            labels: nomes,
-
-            datasets: [{
-                data: consumos,
-
-                backgroundColor: [
-                    "#6C8EFF",
-                    "#A78BFA",
-                    "#4CC9A6",
-                    "#F5B942",
-                    "#F47C7C",
-                    "#55B8D8",
-                    "#D88BCB"
-                ],
-
-                borderWidth: 0,
-                hoverOffset: 8
-            }]
-        },
-
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-
-            cutout: "72%",
-
-            plugins: {
-                legend: {
-                    display: false
-                },
-
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return ` ${context.label}: ${
-                                context.raw.toFixed(2)
-                            } kWh/dia`;
-                        }
-                    }
-                }
-            }
-        }
-    });
-    }
 
     // ==========================================
-    // 15. DESLIZAR ENTRE OS GRÁFICOS
+    // 15.1 DESLIZAR ENTRE OS GRÁFICOS
     // ==========================================
 
     let inicioX = 0;
     let inicioY = 0;
 
-    widget.addEventListener("touchstart", evento => {
+    if (widget) {
 
-        inicioX = evento.touches[0].clientX;
-        inicioY = evento.touches[0].clientY;
+        widget.addEventListener("touchstart", evento => {
 
-    }, { passive: true });
+            inicioX = evento.touches[0].clientX;
+            inicioY = evento.touches[0].clientY;
 
-    widget.addEventListener("touchend", evento => {
+        }, { passive: true });
 
-        const fimX = evento.changedTouches[0].clientX;
-        const fimY = evento.changedTouches[0].clientY;
+        widget.addEventListener("touchend", evento => {
 
-        const distanciaX = fimX - inicioX;
-        const distanciaY = fimY - inicioY;
+            const fimX = evento.changedTouches[0].clientX;
+            const fimY = evento.changedTouches[0].clientY;
 
-        if (Math.abs(distanciaX) < 60) return;
-        if (Math.abs(distanciaX) < Math.abs(distanciaY)) return;
+            const distanciaX = fimX - inicioX;
+            const distanciaY = fimY - inicioY;
 
-        mostrarTela(
-            telaAtual + (distanciaX < 0 ? 1 : -1)
-        );
+            if (Math.abs(distanciaX) < 60) return;
+            if (Math.abs(distanciaX) < Math.abs(distanciaY)) return;
 
-    }, { passive: true });
+            mostrarTela(
+                telaAtual + (distanciaX < 0 ? 1 : -1)
+            );
+
+        }, { passive: true });
+    }
+
 
     // ==========================================
     // 16. INICIALIZAÇÃO
@@ -798,7 +899,10 @@ function atualizarGraficoDistribuicao() {
 
     salvar();
     atualizarDashboard();
+
     atualizarGraficoDistribuicao();
+    atualizarGraficoDistribuicao2();
+
     mostrarTela(0);
 
 });
