@@ -16,21 +16,28 @@
     <div class="modal-container">
         
         <div class="modal-header">
-            <button id="fecharModal"><strong><</strong></button>
+            <button id="fecharModal"><i class="fa-solid fa-angle-left"></i></button>
             <p>MEU MEDIDOR</p>
-            <button id="fecharModal">✕</button>
+            <button id="fecharModal"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
         <div class="modal-content">
 
+            <h2>Adicione um equipamento</h2>
+
             <div class="form-group">
                 <label for="escolherIcone">Escolha um ícone</label>
                 <div class="icon-options">
-                    <div class="icon-option" data-icon="icon1">Icon 1</div>
-                    <div class="icon-option" data-icon="icon2">Icon 2</div>
-                    <div class="icon-option" data-icon="icon3">Icon 3</div>
-                    <div class="icon-option" data-icon="icon4">Icon 4</div>
-                    <div class="icon-option" data-icon="icon5">Icon 5</div>
+                    
+                    <a class="icon-option" data-icon="icon1"><i class="fa-solid fa-plug"></i></a>
+
+                    <a class="icon-option" data-icon="icon2"><i class="fa-regular fa-lightbulb"></i> </a>
+
+                    <a class="icon-option" data-icon="icon3"><i class="fa-solid fa-power-off"></i></i></a>
+
+                    <a class="icon-option" data-icon="icon4"><i class="fa-solid fa-bolt"></i></a>
+
+                    <a class="icon-option" data-icon="icon5"><i class="fa-regular fa-house"></i></a>
                     <!-- Adicione mais ícones conforme necessário -->
                 </div>
             </div>
@@ -41,18 +48,18 @@
             </div>
 
             <div class="form-group">
-                <label for="descricaoEquipamento">Descrição do equipamento:</label>
-                <textarea id="descricaoEquipamento" name="descricaoEquipamento"></textarea>
+                <label for="potenciaEquipamento">Potência do equipamento (W):</label>
+                <input type="number" id="potenciaEquipamento" name="potenciaEquipamento" min="0" max="9999999">
             </div>
 
             <div class="form-group">
-                <label for="quantidadeEquipamento">Quantidade:</label>
-                <input type="number" id="quantidadeEquipamento" name="quantidadeEquipamento">
+                <label for="horasPorDia">Horas ativas por dia:</label>
+                <input type="number" id="horasPorDia" name="horasPorDia" min="0" max="24">
             </div>
 
             <div class="form-group">
-                <label for="localizacaoEquipamento">Localização:</label>
-                <input type="text" id="localizacaoEquipamento" name="localizacaoEquipamento">
+                <label for="horarioInicio">Horário de início da utilização (0 a 23):</label>
+                <input type="number" id="horarioInicio" name="horarioInicio" min="0" max="23">
             </div>
 
         </div>
@@ -64,6 +71,7 @@
     </div> <!-- Fim do container do modal -->
 
 <script src="../js/aba-addlist.js"></script>
+<script src="https://kit.fontawesome.com/17950525a6.js" crossorigin="anonymous"></script>
     
 </body>
 </html>
