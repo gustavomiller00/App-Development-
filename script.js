@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
 
     
@@ -214,6 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
         renderizarEquipamentos();
         atualizarMaioresConsumidores();
         atualizarGraficos();
+        atualizarGraficoDistribuicao();
+        atualizarGraficoDistribuicao2();
     }
 
     
@@ -721,8 +722,12 @@ document.addEventListener("DOMContentLoaded", () => {
             (Number(e.potencia) / 1000) * Number(e.horas)
         );
 
+        // Atualiza a instância existente quando os equipamentos mudarem.
         if (graficoDistribuicao) {
-            graficoDistribuicao.destroy();
+            graficoDistribuicao.data.labels = nomes;
+            graficoDistribuicao.data.datasets[0].data = consumos;
+            graficoDistribuicao.update();
+            return;
         }
 
         graficoDistribuicao = new Chart(canvas, {
@@ -781,20 +786,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!canvas || typeof Chart === "undefined") return;
 
-        const equipamentos = JSON.parse(
-            localStorage.getItem("medidorSinistroEquipamentos") || "[]"
-        );
+        // Utiliza a mesma lista carregada do Supabase pelo Dashboard.
+        // Não consulta o localStorage, pois os equipamentos não são mais
+        // armazenados localmente.
+        const ativos = equipamentosAtivos();
 
-        const equipamentosAtivos = equipamentos.filter(e => e.ativo);
+        const nomes = ativos.map(e => e.nome);
 
-        const nomes = equipamentosAtivos.map(e => e.nome);
-
-        const consumos = equipamentosAtivos.map(e =>
+        const consumos = ativos.map(e =>
             (Number(e.potencia) / 1000) * Number(e.horas)
         );
 
+        // Se o gráfico já existe, atualiza seus dados sem recriá-lo.
         if (graficoDistribuicao2) {
-            graficoDistribuicao2.destroy();
+            graficoDistribuicao2.data.labels = nomes;
+            graficoDistribuicao2.data.datasets[0].data = consumos;
+            graficoDistribuicao2.update();
+            return;
         }
 
         graficoDistribuicao2 = new Chart(canvas, {
@@ -835,7 +843,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         callbacks: {
                             label: function(context) {
                                 return ` ${context.label}: ${
-                                    context.raw.toFixed(2)
+                                    Number(context.raw).toFixed(2)
                                 } kWh/dia`;
                             }
                         }

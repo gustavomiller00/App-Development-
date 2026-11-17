@@ -95,16 +95,16 @@ body {
     transform: translateY(-5px);
 }
 
-.lw-button a {
+.lw-button i {
     color: white;
     font-size: 24px;
 }
 
-.lw-button a:active {
+.lw-button i:active {
     color: white;
 }
 
-.lw-button a:visited {
+.lw-button i:visited {
     color: white;
 }
 
