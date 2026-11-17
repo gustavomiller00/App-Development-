@@ -1,27 +1,37 @@
+
 body {
-    background-color: #ffffff;
-    font-family: 'Outfit', sans-serif;
-    font-size: 16px;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100vh;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    font-family: 'Outfit', sans-serif;
 }
 
 * {
     box-sizing: border-box;
 }
 
+
 .sombra-modal {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
+
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+
+    background: transparent;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     z-index: 9999;
 }
 
@@ -71,14 +81,24 @@ body {
 }
 
 .btn-adicionar {
-    background-color: #ced104;
-    color: rgb(0, 0, 0);
+    width: 100%;
+    font-size: 16px;
+    font-family: 'Outfit', sans-serif;
+    background-color: #b2b41b;
+    color: #fdfdfd;
     padding: 10px 20px;
     margin-bottom: 10px;
 
-    border: none;
+    border: 2px dotted #ffe604;
     border-radius: 10px;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-adicionar:hover {
+    background-color: #d4d404e5;
+    border: 2px solid #d4d404;
+    transform: scale(1.02);
 }
 
 .modal-header button {
@@ -154,6 +174,41 @@ body {
     border: 1px solid #8c87ad81;
     border-radius: 4px;
     background-color: #77739677;
+
+}
+
+
+/* ==========================================
+   TABLET E MOBILE - BOTTOM SHEET
+========================================== */
+
+@media (max-width: 1040px) {
+
+    .sombra-modal {
+        align-items: flex-end;
+    }
+
+    .modal-container {
+        width: 100%;
+        max-width: 100%;
+
+        max-height: 90vh;
+        max-height: 90dvh;
+
+        margin: 0;
+
+        border-radius: 22px 22px 0 0;
+
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        border-radius: 22px 22px 0 0;
+    }
+
+    .modal-footer {
+        border-radius: 0;
+    }
 
 }
 

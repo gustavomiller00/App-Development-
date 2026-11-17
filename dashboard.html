@@ -229,58 +229,15 @@
 
                 <div class="list-consumidores">
 
-                    <div id="eletro1" class="element-consumidores">
-                        <img href="https">
-                        <span class="eletro-name">Microondas</span>
-                        <span class="eletro-consume">16/kWh</span>
-                    </div>
-
-                    <div id="eletro2" class="element-consumidores">
-                        <img href="https">
-                        <span class="eletro-name">Lava-Roupas</Lava-Roupas></span>
-                        <span class="eletro-consume">16/kWh</span>
-                    </div>
-
-                    <div id="eletro3" class="element-consumidores">
-                        <img href="https">
-                        <span class="eletro-name">Computador</span>
-                        <span class="eletro-consume">16/kWh</span>
-                    </div>
-
-                    <div id="eletro4" class="element-consumidores">
-                        <img href="https">
-                        <span class="eletro-name">Lampada</span>
-                        <span class="eletro-consume">16/kWh</span>
-                    </div>
+                    <!-- Equips do banco de dados -->
 
                 </div>
 
             </div>
 
         </div>
-        
-        
-        
-        <!--{
-        (Card com resumo total mensal;) H1
-        (Custo estimado;) h3
-        (Equipamento, aparelhos; Ativos ou não)h3
-        (Por dia (Faz o calculo dos dias do mês em sincronização com o calendário Vs kWh da cidade))h3 
-        }
-
-        {
-        (Card de distribuição de consumo)H1
-        (left Gráfico; lista Pequena de equipamentos right)h5
-        }
-        
-        {
-            (Nome lista de Maiores Consumidores)H1
-            (Card Unitário de Consumidores)h2
-        }-->
-        
-        
-
     </div>
+
 </section>
 
 <section id="Equips">
@@ -298,8 +255,20 @@
 <footer>
 
 </footer>
+<div id="addEquipOverlay" class="add-equip-overlay" hidden>
+
+    <iframe
+        id="addEquipFrame"
+        src="add-equip/aba-addlist.html"
+        title="Adicionar equipamento">
+    </iframe>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="script.js"></script>
 <script src="https://kit.fontawesome.com/17950525a6.js" crossorigin="anonymous"></script>
+<script src="script.js"></script>
 </body>
 </html>

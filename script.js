@@ -1,20 +1,20 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    
     // ==========================================
     // 1. CONFIGURAÇÕES E DADOS
     // ==========================================
 
-    const STORAGE_KEY = "medidorSinistroEquipamentos";
     const TARIFA_KEY = "medidorSinistroTarifa";
 
     let tarifa = Number(localStorage.getItem(TARIFA_KEY)) || 0.95;
 
-    let equipamentos = JSON.parse(
-        localStorage.getItem(STORAGE_KEY) || "[]"
-    );
+    // Equipamentos agora vêm do Supabase
+    let equipamentos = [];
 
     const hoje = new Date();
+
     const diasNoMes = new Date(
         hoje.getFullYear(),
         hoje.getMonth() + 1,
@@ -28,22 +28,69 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     const moeda = (valor) =>
-        valor.toLocaleString("pt-BR", {
+        Number(valor).toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL"
         });
 
+    // Salvar somente a tarifa localmente
     const salvar = () => {
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(equipamentos)
-        );
-
         localStorage.setItem(TARIFA_KEY, tarifa);
     };
 
     const equipamentosAtivos = () =>
         equipamentos.filter(equip => equip.ativo);
+
+
+    // ==========================================
+    // 1.1 CARREGAR EQUIPAMENTOS DO SUPABASE
+    // ==========================================
+
+    async function carregarEquipamentos() {
+
+        try {
+
+            const { data, error } = await window.db
+                .from("equipamentos")
+                .select("*")
+                .order("created_at", { ascending: false });
+
+            if (error) {
+                throw error;
+            }
+
+            // Converter os nomes do banco para os nomes
+            // utilizados pelo Dashboard atual.
+
+            equipamentos = data.map(item => ({
+
+                id: item.id,
+
+                nome: item.nome,
+
+                potencia: Number(item.potencia_w),
+
+                horas: Number(item.horas_por_dia),
+
+                horario: Number(item.horario_inicio),
+
+                icone: item.icone,
+
+                ativo: item.ativo ?? true
+
+            }));
+
+            atualizarDashboard();
+
+        } catch (error) {
+
+            console.error("Erro ao carregar equipamentos:", error);
+
+            alert("Não foi possível carregar os equipamentos do banco.");
+
+        }
+
+    }
 
     // ==========================================
     // 2. CÁLCULOS DE CONSUMO
@@ -169,75 +216,45 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarGraficos();
     }
 
-    // ==========================================
-    // 4. ADICIONAR EQUIPAMENTOS
-    // ==========================================
+    
+    // ===================================
+    // ABRIR E FECHAR CADASTRO DE EQUIPAMENTO
+    // ===================================
 
-    function adicionarEquipamento() {
+    const addEquipOverlay = document.getElementById("addEquipOverlay");
+    const addEquipFrame = document.getElementById("addEquipFrame");
 
-        const nome = prompt("Nome do equipamento:");
-
-        if (!nome || !nome.trim()) return;
-
-        const potencia = Number(
-            prompt("Potência do equipamento em Watts (W):")
-                ?.replace(",", ".")
-        );
-
-        if (!Number.isFinite(potencia) || potencia <= 0) {
-            alert("Informe uma potência válida.");
-            return;
-        }
-
-        const horas = Number(
-            prompt("Quantas horas por dia ele funciona?")
-                ?.replace(",", ".")
-        );
-
-        if (!Number.isFinite(horas) || horas <= 0 || horas > 24) {
-            alert("Informe um tempo entre 0 e 24 horas.");
-            return;
-        }
-
-        const horario = Number(
-            prompt("Horário de início da utilização (0 a 23):", "8")
-        );
-
-        if (
-            !Number.isInteger(horario) ||
-            horario < 0 ||
-            horario > 23
-        ) {
-            alert("Informe um horário válido entre 0 e 23.");
-            return;
-        }
-
-        const equipamento = {
-            id: Date.now(),
-            nome: nome.trim(),
-            potencia,
-            horas,
-            horario,
-            ativo: true
-        };
-
-        equipamentos.push(equipamento);
-
-        salvar();
-        atualizarDashboard();
-
-        alert(`${nome} cadastrado com sucesso!`);
+    function abrirCadastro() {
+        addEquipOverlay.hidden = false;
     }
 
-    // ==========================================
-    // 5. BOTÕES DE ADICIONAR
-    // ==========================================
+    function fecharCadastro() {
+        addEquipOverlay.hidden = true;
+    }
 
-    document.getElementById("add-equip")
-        ?.addEventListener("click", adicionarEquipamento);
+    document.getElementById("add-equip")?.addEventListener("click", abrirCadastro);
 
-    document.getElementById("add-equip-out")
-        ?.addEventListener("click", adicionarEquipamento);
+    document.getElementById("add-equip-out")?.addEventListener("click", abrirCadastro);
+
+
+    // Receber mensagens do formulário
+    window.addEventListener("message", async (event) => {
+
+        if (event.origin !== window.location.origin) return;
+
+        if (event.data?.tipo === "fechar-modal") {
+            fecharCadastro();
+        }
+
+        if (event.data?.tipo === "equipamento-cadastrado") {
+
+        fecharCadastro();
+
+        await carregarEquipamentos();
+
+    }
+
+    });
 
     // ==========================================
     // 6. CADASTRO DE EQUIPAMENTOS NA TELA
@@ -301,27 +318,60 @@ document.addEventListener("DOMContentLoaded", () => {
             item.querySelector(".nome-equipamento").textContent =
                 equip.nome;
 
+            
             item.querySelector(".alternar-equip")
-                .addEventListener("click", () => {
+                .addEventListener("click", async () => {
 
-                    equip.ativo = !equip.ativo;
+                    const novoEstado = !equip.ativo;
 
-                    salvar();
-                    atualizarDashboard();
+                    try {
+
+                        const { error } = await window.db
+                            .from("equipamentos")
+                            .update({ ativo: novoEstado })
+                            .eq("id", equip.id);
+
+                        if (error) throw error;
+
+                        await carregarEquipamentos();
+
+                    } catch (error) {
+
+                        console.error("Erro ao alterar equipamento:", error);
+
+                        alert("Não foi possível alterar o estado do equipamento.");
+
+                    }
+
                 });
 
+            
             item.querySelector(".remover-equip")
-                .addEventListener("click", () => {
+                .addEventListener("click", async () => {
 
                     if (!confirm(`Excluir ${equip.nome}?`)) return;
 
-                    equipamentos = equipamentos.filter(
-                        e => e.id !== equip.id
-                    );
+                    try {
 
-                    salvar();
-                    atualizarDashboard();
+                        const { error } = await window.db
+                            .from("equipamentos")
+                            .delete()
+                            .eq("id", equip.id);
+
+                        if (error) throw error;
+
+                        await carregarEquipamentos();
+
+                    } catch (error) {
+
+                        console.error("Erro ao excluir equipamento:", error);
+
+                        alert("Não foi possível excluir o equipamento.");
+
+                    }
+
                 });
+
 
             lista.appendChild(item);
         });
@@ -663,15 +713,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!canvas || typeof Chart === "undefined") return;
 
-        const equipamentos = JSON.parse(
-            localStorage.getItem("medidorSinistroEquipamentos") || "[]"
-        );
+        const ativos = equipamentosAtivos();
 
-        const equipamentosAtivos = equipamentos.filter(e => e.ativo);
+        const nomes = ativos.map(e => e.nome);
 
-        const nomes = equipamentosAtivos.map(e => e.nome);
-
-        const consumos = equipamentosAtivos.map(e =>
+        const consumos = ativos.map(e =>
             (Number(e.potencia) / 1000) * Number(e.horas)
         );
 
@@ -898,11 +944,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
 
     salvar();
-    atualizarDashboard();
-
-    atualizarGraficoDistribuicao();
-    atualizarGraficoDistribuicao2();
-
+    carregarEquipamentos();
     mostrarTela(0);
 
 });
