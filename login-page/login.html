@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <link rel="icon" href="login-page/logo.gif" type="gif">
     <title>Login / Beta Development App 0.01v</title>
     <meta charset="UTF-8">
@@ -14,23 +17,23 @@
 
     <div class="hero">
 
-        <div class="watt">
-            <p>CADA WATT CONTA</p>
+        <div id="watt">
+            <p><i class="fas fa-bolt"></i> CADA WATT CONTA</p>
         </div>
         
         <div class="hero-text">
             <h1>Mais controle. <br> Menos desperdício.</h1>
-            <h2>Entenda o consumo da sua casa e transforme pequenos hábitos em boas escolhas.</h2>
+            <h2><small>Entenda o consumo da sua casa e transforme pequenos hábitos em boas escolhas.</small></h2>
         </div>
 
-        <div class="yellow-box">
-            <h2>Sua casa conectada à economia</h2>
-            <p><strong>Conheça seus aparelhos</strong> <br>Saiba onde sua energia é usada.</p>
-            <p><strong>Faça escolhas conscientes</strong> <br> Veja estimativas em kWh, sem complicação.</p>
-            <p><strong>Acompanhe o consumo</strong> <br> Planeje uma rotina com menos desperdício.</p>
+        <div id="second-box">
+            <h2><i class="fas fa-bolt"></i> Sua casa conectada à economia</h2>
+            <p><i class="fa-solid fa-1"></i> <strong>Conheça seus aparelhos</strong> <br>Saiba onde sua energia é usada.</p>
+            <p><i class="fa-solid fa-2"></i> <strong>Faça escolhas conscientes</strong> <br> Veja estimativas em kWh, sem complicação.</p>
+            <p><i class="fa-solid fa-3"></i> <strong>Acompanhe o consumo</strong> <br> Planeje uma rotina com menos desperdício.</p>
         </div>
 
-        <span> Informação que vira economia</span>
+        <p id="foot">Informação que vira economia</p>
 
     </div>
     
@@ -38,10 +41,21 @@
     <div class="login-card">
         
         <div class="header-login">
-            <img class="logo-top" src="login-page/logos.gif" alt="Logo do App">
             <span class="login-text">
-                Faça login ou crie sua conta
+                Boas vindas de volta! <br> para acompanhar a energia da sua casa.
             </span>
+            
+            <div class="toggle-container">
+                
+                <a class="Login active">
+                    <span>Login</span>
+                </a>
+
+                <a class="Cadastro">
+                    <span>Cadastro</span>
+                </a>
+            </div>
+
         </div>
         
         <div class="input-group">
@@ -76,13 +90,8 @@
 
     </div>
 
-    <!-- lw-button = Login With -->
-    <!-- Adicionar nome, senha, cadastro, login com e etc.. -->
-
-
 </section>
 
 </body>
-
 <script src="https://kit.fontawesome.com/17950525a6.js" crossorigin="anonymous"></script>
 </html>
