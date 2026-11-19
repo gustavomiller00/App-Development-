@@ -49,11 +49,11 @@
             
             <div class="toggle-container">
                 
-                <a class="Login active">
+                <a href="#" class="Login nolink active">
                     <span>Login</span>
                 </a>
 
-                <a class="Cadastro">
+                <a href="#" class="Cadastro nolink">
                     <span>Cadastro</span>
                 </a>
             </div>
@@ -61,27 +61,35 @@
         </div>
         
         <div class="size">
+
+            <div class="input-group">
+                <input type="text" id="Nome" required>
+                <label for="Nome">Digite seu nome</label>
+            </div>
+
             <div class="input-group">
                 <input type="email" id="email" required>
                 <label for="email">Email</label>
             </div>
 
             <div class="input-group">
-                <input type="password id="password" required>
+                <input type="password" id="password" required>
                 <label for="password">Senha</label>
             </div>
 
             <div class="check-group">
-            <a class="check-box"> 
-                <input type="checkbox" id="lembrar">
-                <label for="lembrar" style="cursor: pointer;"> Lembrar acesso</label>
-            </a>   
-                <a href="https://github.com/gustavomiller00" id="EsqueciSenha" class="pass-forgot">Esqueceu a senha?</a>
-        </div>
+                <a class="check-box"> 
+                    <input type="checkbox" id="lembrar">
+                    <label for="lembrar" style="cursor: pointer;"> Lembrar acesso</label>
+                </a>   
+                    <a href="https://github.com/gustavomiller00" id="EsqueciSenha" class="pass-forgot nolink">Esqueceu a senha?</a>
+                    <p id="TermosdeUso">Ao criar sua conta, você concorda com os Termos de uso e a Política de Privacidade.</p>
+            </div>
 
         </div>
-        
-            <a class="text-or">ou,  faça login com</a>
+
+            <div id="Linha"></div>
+            <div id="TextOu"> ou, faça login com</div>
         
 
         <div class="org-lw">
@@ -103,6 +111,7 @@
     <div class="creditos">MillerDev©︎ • 2026</div>
 </footer>
 
+<script src="login.js"></script>
 </body>
 <script src="https://kit.fontawesome.com/17950525a6.js" crossorigin="anonymous"></script>
 </html>
