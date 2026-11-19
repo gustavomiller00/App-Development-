@@ -1,6 +1,4 @@
 
-
-
 body {
     font-family: 'Outfit', sans-serif;
     font-weight: 300;
@@ -9,10 +7,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0;
-    left: 0;
     min-height: 100vh;
-    min-width: 100vh;
+    min-width: 100vw;
     overflow: hidden;
 }
 
@@ -39,8 +35,11 @@ body {
 
 
 .login-card {
-    height: 600px;
-    width: 32%;
+    height: 100%;
+    width: 34%;
+    box-sizing: border-box;
+    padding: 20px;
+
     background-color: rgb(28, 33, 37);
     border: 1px solid rgba(0, 0, 0, 0.24);
     border-radius: 30px;
@@ -51,8 +50,6 @@ body {
     align-items: center;
     flex-direction: column;
     z-index: 0;
-
-    padding: 20px;
 }
 
 .text-or {
@@ -68,6 +65,28 @@ body {
     justify-content: center;
     align-items: center;
     gap: 30px;
+
+    box-sizing: border-box;
+
+}
+
+.login-title {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#Titulo {
+    color: white;
+    font-size: 28px;
+    font-weight: 400;
+    margin: 1px;
+}
+
+#Subtitulo {
+    margin: 1px;
+    color: #e2e2e2;
 }
 
 .logo-top{
@@ -76,11 +95,6 @@ body {
     border-radius: 12px;
 }
 
-.login-text {
-    color: white;
-    font-size: 25px;
-    font-weight: 300;
-}
 
 #second-box {
     max-width: 80%;
@@ -150,10 +164,16 @@ strong{
     color: rgba(231, 231, 231, 0.822);
     padding-top: 10px;
 }
+.hero-text{
+    margin: 3% 0px;
+}
 
-.hero h1 {
+.hero-text h1 {
     font-size: 50px;
-    padding-bottom: 5px;
+    margin: 1px;
+}
+.hero-text h2 {
+    margin: 20px 1px;
 }
 
 .toggle-container {
@@ -197,6 +217,7 @@ strong{
 
 .org-lw {
     display: flex;
+    flex-direction: row;
     justify-items: center;
     align-items: center;
     gap: 10px;
@@ -217,6 +238,9 @@ strong{
     display: flex;
     justify-content: center;
     align-items: center;
+
+    color: #eeeeee;
+    font-size: 22px;
     
 }
 
@@ -224,11 +248,6 @@ strong{
     background-color: #313131;
     box-shadow: 0px 2px 2px 0px rgb(22, 22, 22);
     transform: translateY(-5px);
-}
-
-.lw-button i {
-    color: white;
-    font-size: 24px;
 }
 
 .lw-button i:active {
@@ -244,10 +263,20 @@ strong{
 
 /* Animacação do input Email e Senha */
 
+.size {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0px 20px;
+    margin-bottom: 20px;
+}
+
 .input-group {
-    margin: 20px 0;
+    margin-top: 20px;
     position: relative;
     z-index: 1;
+    
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .input-group label {
@@ -260,30 +289,55 @@ strong{
     color: rgb(218, 223, 223);
     padding: 0 5px;
     transition: .5s;
+
 }
 
 .input-group input {
-    width: 360px;
+    width: 90%;
     height: 60px;
     color: #fff;
     font-size: 16px;
-    padding: 0 15px;
+    padding: 0px 15px;
     border: 1.2px solid rgb(220, 223, 223);
     background: transparent;
     outline: none;
     border-radius: 5px;
 }
 
-.input-group input:focus~label,
-.input-group input:valid~label {
-    top: 0;
-    background:rgb(28, 33, 37);
-    font-size: 14px;
+.check-group {
+    width: 100%;
+    box-sizing: border-box;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 10px;
+}
+
+#EsqueciSenha{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    width: 100%;
+}
+#lembrar {
+    margin: 0px 5px 0 0;
+}
+
+.check-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+
+    font-size: 16px;
 }
 
 .pass-forgot {
-    display:block;
-    margin-top: 15px;
+    display:flex;
     cursor: pointer;
     color: white;
     text-decoration: none;
@@ -294,41 +348,43 @@ strong{
     text-decoration: underline;
 }
 
+
+.input-group input:focus~label,
+.input-group input:valid~label {
+    top: 0;
+    background:rgb(28, 33, 37);
+    font-size: 14px;
+}
+
+
 /*-----------------------------------*/
 
 
 /* Botão Login */
 
 .org-login {
+    width: 100%;
+    height: 100%;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
-    padding: 30px 0px 0px 0px;
-    margin-top: 10px;
+    
+    
+    margin-top: 30px;
 }
 
-.button-registrar {
-    background-color: rgb(148, 158, 0);
-    border-radius: 20px;
-    padding: 20px 40px;
-    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
-    transition-duration: 0.5s;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.6);
-    text-decoration: none;
-    color: white;
-}
-
-.button-login:hover {
-    transform: translateY(-5px);
-}
-
-.button-login {
-    background-color: rgba(95, 95, 95, 0.3);
+.btnLogin {
+    background-color: rgba(187, 159, 0, 0.829);
     border-radius: 20px;
     border: 1px solid rgba(182, 181, 181, 0.384);
-    padding: 20px 40px;
+    
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.24);
     transition-duration: 0.5s;
     cursor: pointer;
@@ -336,10 +392,20 @@ strong{
     color: white;
 }
 
-.button-registrar:hover {
-    transform: translateY(-5px);
-}
+footer {
+    display: flex;
+    justify-content: center;
 
+    width: 100%;
+    height: 2%;
+    padding: 5px;
+    color: #3b3764;
+    
+
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+}
 /*-----------------------------------*/
 
 
